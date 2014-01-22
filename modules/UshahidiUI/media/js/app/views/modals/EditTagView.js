@@ -1,26 +1,25 @@
 /**
- * Edit Post
+ * Edit / Create Tag
  *
- * @module     EditPostView
+ * @module     EditUserView
  * @author     Ushahidi Team <team@ushahidi.com>
  * @copyright  2013 Ushahidi
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-define([ 'App', 'marionette', 'handlebars', 'underscore', 'alertify', 'text!templates/modals/EditPost.html', 'forms/UshahidiForms', 'backbone-validation'],
+define([ 'App', 'marionette', 'handlebars', 'underscore', 'alertify', 'text!templates/modals/EditTag.html',
+	'forms/UshahidiForms', 'backbone-validation'],
 	function( App, Marionette, Handlebars, _, alertify, template, BackboneForm, BackboneValidation)
 	{
 		return Marionette.ItemView.extend( {
 			template: Handlebars.compile(template),
-			className: 'edit-post',
 			initialize : function ()
 			{
 				// Set up the form
 				this.form = new BackboneForm({
 					model: this.model,
-					idPrefix : 'post-',
-					className : 'create-post-form',
-					fieldsets : _.result(this.model, 'fieldsets')
+					idPrefix : 'tag-',
+					className : 'edit-tag-form',
 					});
 				BackboneValidation.bind(this, {
 					valid: function(/* view, attr */)
@@ -32,26 +31,21 @@ define([ 'App', 'marionette', 'handlebars', 'underscore', 'alertify', 'text!temp
 						// Do nothing, displaying errors is handled by backbone-forms
 					}
 				});
+			},
 
-				// Trigger event when modal is fully opened, used to refresh map size
-				this.on('modal:opened', function ()
-				{
-					this.form.trigger('dom:refresh');
-				});
-			},
 			events: {
-				'submit form' : 'formSubmitted',
-				'click .js-switch-fieldset' : 'switchFieldSet'
+				'submit form' : 'formSubmitted'
 			},
+
 			onDomRefresh : function()
 			{
 				// Render the form and add it to the view
 				this.form.render();
 
 				// Set form id, backbone-forms doesn't do it.
-				this.form.$el.attr('id', 'edit-post-form');
+				this.form.$el.attr('id', 'edit-tag-form');
 
-				this.$('.post-form-wrapper').append(this.form.el);
+				this.$('.tag-form-wrapper').append(this.form.el);
 			},
 			formSubmitted : function (e)
 			{
@@ -69,15 +63,15 @@ define([ 'App', 'marionette', 'handlebars', 'underscore', 'alertify', 'text!temp
 					if (request)
 					{
 						request
-							.done(function (model /*, response, options*/)
+							.done(function ()
 								{
-									alertify.success('Post saved.');
-									App.appRouter.navigate('posts/' + model.id, { trigger : true });
+									alertify.success('Tag details saved.');
+
 									that.trigger('close');
 								})
 							.fail(function (response /*, xhr, options*/)
 								{
-									alertify.error('Unable to save post, please try again.');
+									alertify.error('Unable to save tag details, please try again.');
 									// validation error
 									if (response.errors)
 									{
@@ -88,36 +82,24 @@ define([ 'App', 'marionette', 'handlebars', 'underscore', 'alertify', 'text!temp
 					}
 					else
 					{
-						alertify.error('Unable to save post, please try again.');
+						alertify.error('Unable to save tag details, please try again.');
 						console.log(this.model.validationError);
 					}
 				}
 			},
-			switchFieldSet : function (e)
-			{
-				var $el = this.$(e.currentTarget);
-				// Add active class to fieldset
-				this.$('fieldset').removeClass('active');
-				this.$($el.attr('href')).addClass('active');
-				// Add active class to nav
-				this.$('.form-options-nav dd').removeClass('active');
-				$el.parent().addClass('active');
-
-				e.preventDefault();
-			},
 			onClose : function ()
 			{
 				BackboneValidation.unbind(this);
+				App.Collections.Tags.fetch();
 			},
+
 			serializeData: function()
 			{
-				var data = _.extend(this.model.toJSON(), {
-					isPublished : this.model.isPublished(),
-					tags : this.model.getTags(),
-					user : this.model.user ? this.model.user.toJSON() : null,
-					fieldsets : _.result(this.model, 'fieldsets')
+				var data = _.extend(this.model.toJSON(),
+				{
+					isNew : this.model.isNew()
 				});
 				return data;
-			}
+			},
 		});
 	});

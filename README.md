@@ -84,7 +84,7 @@ git submodule update --init --recursive
   (
     'default' => array
     (
-      'type'       => 'mysql',
+      'type'       => 'MySQLi',
       'connection' => array(
         'hostname'   => 'localhost',
         'database'   => 'lamu',
