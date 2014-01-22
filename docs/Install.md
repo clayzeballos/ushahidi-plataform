@@ -14,34 +14,95 @@ the following requirements:
     * nginx
   * Unicode support in the operating system
 
-### [](https://github.com/ushahidi/Lamu/edit/master/README.md#getting-the-
-code)Getting the code
+### Getting the code
 
 You can get the code by cloning the github repo.
+
+ac:macro ac:name="code"
+
+ac:plain-text-body
+
+    
+    git clone --recursive https://github.com/ushahidi/Lamu
 
 You need to use `--recursive` to initialize and clone all the submodules. If
 you've already cloned without submodules you can already initialize (or
 update) them but running:
 
+ac:macro ac:name="code"
+
+ac:plain-text-body
+
+    
+    git submodule update --init
+
 ### Installing
 
   1. Get the code by cloning the [git repo](https://github.com/ushahidi/Lamu)
 
-(-recursive is needed to make sure submodules are cloned too)
+ac:macro ac:name="code"
+
+ac:plain-text-body
+
+    
+    git clone --recursive https://github.com/ushahidi/Lamu
+
+(recursive is needed to make sure submodules are cloned too)
 
   2. Create a database
   3. Copy _application/config/database.php_ to _application/config/environments/development/database.php_
   4. Edit _application/config/environments/development/database.php_ and set database, username and password params
 
+ac:macro ac:name="code"
+
+ac:parameter ac:name="language"
+
 php
 
+ac:plain-text-body
+
+    
+     return array
+        (
+            'default' => array
+            (
+                'type'       => 'MySQLi',
+                'connection' => array(
+                    'hostname'   => 'localhost',
+                    'database'   => 'lamu',
+                    'username'   => 'lamu',
+                    'password'   => 'lamu',
+                    'persistent' => FALSE,
+                ),
+                'table_prefix' => '',
+                'charset'      => 'utf8',
+                'caching'      => TRUE,
+                'profiling'    => TRUE,
+            )
+        );
+
   5. Install the database schema using migrations
+
+ac:macro ac:name="code"
+
+ac:plain-text-body
+
+    
+    ./minion --task=migrations:run --up
 
   6. Copy _application/config/init.php_ to _application/config/environments/development/init.php_
   7. Edit _application/config/environments/development/init.php_ and change base_url to point the the httpdocs directory in your deployment
   8. Copy _httpdocs/template.htaccess_ to _httpdocs/.htaccess_
   9. Edit _httpdocs/.htaccess_ and change the RewriteBase value to match your deployment url
   10. Create directories _application/cache_ and _application/logs_ and make sure they're writeable by your webserver
+
+ac:macro ac:name="code"
+
+ac:plain-text-body
+
+    
+    mkdir application/cache application/logs
+    chown www-data application/cache application/logs
 
 ### Configuration
 
