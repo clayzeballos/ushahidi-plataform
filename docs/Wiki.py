@@ -1,6 +1,11 @@
 #!/usr/bin/python
 import sys, xmlrpclib, ConfigParser
 
+"""
+Init class to set up connection to confluence wiki
+3vilcomesinmanyguises
+http://megatokyo.com/strip/287
+"""
 class Wiki:
 	def __init__(self):
 		config = self.config = ConfigParser.ConfigParser()
