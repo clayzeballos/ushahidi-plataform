@@ -35,4 +35,4 @@ page['title'] = md_title
 page['content'] = new_content
 
 # Save
-wiki.server.confluence2.storePage(wiki.token, page)
+wiki.server.confluence2.updatePage(wiki.token, page, {"versionComment" : "Sync update from github source"})
