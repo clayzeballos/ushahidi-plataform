@@ -19,3 +19,4 @@ node_modules*
 .sublime-project
 build/*
 .wiki.cfg
+*.pyc
