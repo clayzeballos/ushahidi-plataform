@@ -81,10 +81,12 @@ git submodule update --init --recursive
    your deployment url
 8. Create directories ```application/cache```, ```application/media/uploads```
    and ```application/logs``` and make sure they're writeable by your webserver
+
     ```
     mkdir application/cache application/logs application/media/uploads
     chown www-data application/cache application/logs application/media/uploads
     ```
+
 9. Install the database schema using migrations
 
   ```
@@ -106,7 +108,4 @@ You can add per-environment config overrides in
 the ```KOHANA_ENV``` environment variable.
 
 Routes are configured in ```application/routes/default.php```. Additional
-routes can be added in per-environment routing files ie.
-```application/routes/development.php```.
-
-
+routes can be added in per-environment routing files ie. ```application/routes/development.php```
