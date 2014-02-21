@@ -12,6 +12,7 @@ node_modules*
 .floo
 .flooignore
 .sublime-project
+.vim*
 build/*
 
 # Kohana deployment specifics
