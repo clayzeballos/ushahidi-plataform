@@ -3,84 +3,106 @@
 // Sanity check, install should only be checked from index.php
 defined('SYSPATH') or exit('Install tests must be loaded from within index.php!');
 
-$message = NULL;
-$failed  = FALSE;
-
-$tests = array(
-	'PHP Version' => function( & $message)
-	{
-		$message = 'Ushahidi requires PHP 5.3.3 or newer, this is ' .  PHP_VERSION;
-		return version_compare(PHP_VERSION, '5.3.3', '>=');
-	},
-	'Security' => function( & $message)
-	{
-		$check = array(
-			'ctype' => 'ctype_digit',
-			'filter' => 'filter_list',
-			'hash' => 'hash',
-			);
-
-		foreach ($check as $extension => $function)
+$failed = FALSE;
+$test_groups = array(
+	'Preflight' => array(
+		'PHP Version' => function( & $message)
 		{
-			if ( ! function_exists($function)) {
-				$message = "The [{$missing}] PHP extension is required for security";
-				return FALSE;
+			$message = 'Ushahidi requires PHP 5.3.3 or newer, this is ' .  PHP_VERSION;
+			return version_compare(PHP_VERSION, '5.3.3', '>=');
+		},
+		'Security' => function( & $message)
+		{
+			$check = array(
+				'ctype' => 'ctype_digit',
+				'filter' => 'filter_list',
+				'hash' => 'hash',
+				);
+
+			foreach ($check as $extension => $function)
+			{
+				if ( ! function_exists($function)) {
+					$message = "The [{$missing}] PHP extension is required for security";
+					return FALSE;
+				}
 			}
-		}
-		$message = "PHP has basic security requirements";
-		return TRUE;
-	},
-	'i18n' => function( & $message)
-	{
-		if ( ! @preg_match('/^.$/u', 'ñ'))
+			$message = "PHP has basic security requirements";
+			return TRUE;
+		},
+		'i18n' => function( & $message)
 		{
-			$missing = 'PCRE UTF-8';
-		}
-		elseif ( ! @preg_match('/^\pL$/u', 'ñ'))
-		{
-			$missing = 'PCRE Unicode';
-		}
-		elseif ( ! extension_loaded('iconv'))
-		{
-			$missing = 'iconv';
-		}
-		elseif (extension_loaded('mbstring') AND (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING))
-		{
-			$missing = 'mbstring without overloading';
-		}
+			if ( ! @preg_match('/^.$/u', 'ñ'))
+			{
+				$missing = 'PCRE UTF-8';
+			}
+			elseif ( ! @preg_match('/^\pL$/u', 'ñ'))
+			{
+				$missing = 'PCRE Unicode';
+			}
+			elseif ( ! extension_loaded('iconv'))
+			{
+				$missing = 'iconv';
+			}
+			elseif (extension_loaded('mbstring') AND (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING))
+			{
+				$missing = 'mbstring without overloading';
+			}
 
-		if (isset($missing))
-		{
-			$message = "PHP requires [{$missing}] for proper international support";
-		}
-		else
-		{
-			$message = "PHP has UTF-8 and Unicode support enabled";
-		}
+			if (isset($missing))
+			{
+				$message = "PHP requires [{$missing}] for proper international support";
+			}
+			else
+			{
+				$message = "PHP has UTF-8 and Unicode support enabled";
+			}
 
-		return ! isset($missing);
-	},
-	'System' => function( & $message)
-	{
-		$message = "The [system] directory has the required dependencies";
-		return (is_dir(SYSPATH) AND is_file(SYSPATH.'classes/Kohana'.EXT));
-	},
-	'Application' => function( & $message)
-	{
-		$message = "The [application] directory contains the Ushahidi application";
-		return (is_dir(APPPATH) AND is_file(APPPATH.'bootstrap'.EXT));
-	},
-	'Caching' => function( & $message)
-	{
-		$message = "The application [cache] directory must be writable";
-		return (is_dir(APPPATH) AND is_dir(APPPATH.'cache'));
-	},
-	'Logging' => function( & $message)
-	{
-		$message = "The application [logs] directory must be writable";
-		return (is_dir(APPPATH) AND is_dir(APPPATH.'logs'));
-	},
+			return ! isset($missing);
+		},
+		'System' => function( & $message)
+		{
+			$message = "The [system] directory has the required dependencies";
+			return (is_dir(SYSPATH) AND is_file(SYSPATH.'classes/Kohana'.EXT));
+		},
+		'Application' => function( & $message)
+		{
+			$message = "The [application] directory contains the Ushahidi application";
+			return (is_dir(APPPATH) AND is_file(APPPATH.'bootstrap'.EXT));
+		},
+		'Caching' => function( & $message)
+		{
+			$message = "The application [cache] directory must be writable";
+			return (is_dir(APPPATH) AND is_dir(APPPATH.'cache') AND is_writable(APPPATH.'cache'));
+		},
+		'Logging' => function( & $message)
+		{
+			$message = "The application [logs] directory must be writable";
+			return (is_dir(APPPATH) AND is_dir(APPPATH.'logs') AND is_writable(APPPATH.'logs'));
+		},
+	),
+	'Installer' => array(
+		'Bootstrap' => function( & $message)
+		{
+			// Bootstrap the application
+			require APPPATH.'bootstrap'.EXT;
+			return TRUE;
+		},
+		'Database' => function ( & $message)
+		{
+			$config = Kohana::$config->load('database')->default;
+			return ! empty($config);
+		},
+	),
 );
+
+$tests_total = 0;
+$tests_done = 0;
+
+foreach ($test_groups as $a) {
+	foreach ($a as $b) {
+		$tests_total += count($b);
+	}
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -157,16 +179,28 @@ $tests = array(
 
 	<ol>
 		<?php
-		foreach ($tests as $name => $test):
-			$success = $test($message);
-			if ( ! $success)
-			{
-				$failed = TRUE;
+		foreach ($test_groups as $group => $tests) {
+			foreach ($tests as $name => $test) {
+				$success = $test($message);
+				if ( ! $success)
+				{
+					$failed = TRUE;
+				}
+				$tests_done++;
+				?>
+				<li class="<?php echo $success ? 'pass' : 'fail'; ?>" title="<?php echo $message ?>"
+					><?php echo $name; ?></li>
+				<?php
 			}
-			?>
-			<li class="<?php echo $success ? 'pass' : 'fail'; ?>" title="<?php echo $message ?>"
-				><?php echo $name; ?></li>
-		<?php endforeach ?>
+			if ($failed)
+			{
+				break; // do not check any more groups
+			}
+		}
+		if ($failed AND ($tests_total - $tests_done) > 0): ?>
+			<li class="fail" title="Additional checks skipped due to failures"
+				><?php echo ($tests_total - $tests_done) ?> Tests Remaining</li>
+		<?php endif ?>
 	</ol>
 
 	<?php if ($failed): ?>
