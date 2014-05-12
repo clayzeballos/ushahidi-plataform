@@ -84,8 +84,7 @@ $test_groups = array(
 		'Bootstrap' => function( & $message)
 		{
 			// Bootstrap the application
-			require APPPATH.'bootstrap'.EXT;
-			return TRUE;
+			return is_file(APPPATH.'bootstrap'.EXT);
 		},
 		'Database' => function ( & $message)
 		{
