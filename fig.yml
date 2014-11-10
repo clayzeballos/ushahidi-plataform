@@ -8,6 +8,9 @@ web:
   volumes:
     - .:/code
 db:
-  image: orchardup/mysql
+  image: mysql
   environment:
     MYSQL_DATABASE: ushahidi
+    MYSQL_USER: ushahidi
+    MYSQL_PASSWORD: lamulamulamu
+    MYSQL_ROOT_PASSWORD: lamulamulamu
