@@ -13,6 +13,8 @@ data:
     - .:/data
 db:
   image: mysql
+  volumes_from:
+    - data
   environment:
     MYSQL_DATABASE: ushahidi
     MYSQL_USER: ushahidi
