@@ -12,7 +12,7 @@ data:
   volumes:
     - .:/data
 db:
-  build: ./containers/mysql/
+  image: mysql
   environment:
     MYSQL_DATABASE: ushahidi
     MYSQL_USER: ushahidi
