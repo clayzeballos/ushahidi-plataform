@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Downloading and importing demo data"
+
+curl -sS https://72c9192a7b87de5fc63a-f9fe2e6be12470a7bff22b7693bc7329.ssl.cf1.rackcdn.com/V3/ushahidi-platform-demo-data.sql.gz | \
+gunzip -c | \
+mysql -h db -u ushahidi -plamulamulamu ushahidi
+
+echo "Done"
