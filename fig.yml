@@ -20,7 +20,6 @@ db:
     MYSQL_ROOT_PASSWORD: lamulamulamu
 php:
   build: ./containers/php/
-  #command: php -S 0.0.0.0:8000 -t /code /code/httpdocs/index.php
   links:
     - db
   volumes_from:
