@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM dockerfile/ubuntu
 
 RUN mkdir -p /data
 VOLUME ["/data"]
