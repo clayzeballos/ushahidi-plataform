@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     php5-curl \
     php5-gd \
     php5-json \
+    php5-imap \
     php5-mcrypt \
     php5-mysqlnd
 
