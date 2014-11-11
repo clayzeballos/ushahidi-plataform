@@ -1,0 +1,35 @@
+server {
+    listen   80; ## listen for ipv4; this line is default and implied
+    listen   [::]:80 default ipv6only=on; ## listen for ipv6
+
+    charset UTF-8;
+    root /data/httpdocs;
+    index index.php index.html index.htm;
+
+    server_name localhost;
+
+    location / {
+        try_files $uri $uri/ @missing;
+    }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+
+    # pass the PHP scripts to the FPM server
+    #
+    location ~ (\.php) {
+        include fastcgi_params;
+        fastcgi_pass fpm_backend;
+        fastcgi_param SCRIPT_FILENAME $request_filename;
+    }
+
+    # Rewrite 404s back to PHP
+    #
+    location @missing {
+        rewrite ^ /index.php last;
+    }
+}

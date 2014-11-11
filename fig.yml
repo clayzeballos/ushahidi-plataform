@@ -1,16 +1,38 @@
-web:
-  build: .
-  command: php -S 0.0.0.0:8000 -t /code /code/httpdocs/index.php
-  ports:
-    - "8000:8000"
-  links:
-    - db
+# web:
+#   build: images/nginx
+#   ports:
+#     - "8000:8000"
+#   links:
+#     - mysql:db
+#   volumes:
+#     - www:/var/www
+#     - sites:/etc/nginx/sites-enabled
+data:
+  build: ./containers/data/
   volumes:
-    - .:/code
+    - .:/data
 db:
-  image: mysql
+  build: ./containers/mysql/
   environment:
     MYSQL_DATABASE: ushahidi
     MYSQL_USER: ushahidi
     MYSQL_PASSWORD: lamulamulamu
     MYSQL_ROOT_PASSWORD: lamulamulamu
+php:
+  build: ./containers/php/
+  #command: php -S 0.0.0.0:8000 -t /code /code/httpdocs/index.php
+  links:
+    - db
+  volumes_from:
+    - data
+nginx:
+  build: ./containers/nginx/
+  ports:
+    - "8000:80"
+  links:
+    - php:fpm
+  volumes_from:
+    - data
+  volumes:
+    - ./containers/nginx/sites-enabled:/etc/nginx/sites-enabled
+    - ./containers/nginx/conf.d:/etc/nginx/conf.d
