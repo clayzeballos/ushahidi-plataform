@@ -1,12 +1,5 @@
-# web:
-#   build: images/nginx
-#   ports:
-#     - "8000:8000"
-#   links:
-#     - mysql:db
-#   volumes:
-#     - www:/var/www
-#     - sites:/etc/nginx/sites-enabled
+# Ushahidi Platform Docker containers
+
 data:
   build: ./containers/data/
   volumes:
