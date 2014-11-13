@@ -2,7 +2,7 @@
 
 /**
  * Database Config
- * 
+ *
  * @author     Ushahidi Team <team@ushahidi.com>
  * @package    Ushahidi\Application\Config
  * @copyright  2013 Ushahidi
@@ -15,10 +15,10 @@ return array
 	(
 		'type'       => 'MySQLi',
 		'connection' => array(
-			'hostname'   => 'localhost',
-			'database'   => 'database',
-			'username'   => 'username',
-			'password'   => 'password',
+			'hostname'   => 'db',
+			'database'   => 'ushahidi',
+			'username'   => 'ushahidi',
+			'password'   => 'lamulamulamu',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
