@@ -3,12 +3,14 @@ set -e
 
 mkdir -p /data/application/config/environments/development/
 
+MYSQL_DATABASE=${MYSQL_DATABASE:-"ushahidi"}
+MYSQL_USERNAME=${MYSQL_USERNAME:-"root"}
+MYSQL_PASSWORD=${MYSQL_PASSWORD:-"changethisrootpassword"}
+
+export MYSQL_DATABASE MYSQL_USERNAME MYSQL_PASSWORD
+
 if [ ! -f "/data/application/config/environments/development/database.php" ]; then
 	cp /data/application/config/database.php /data/application/config/environments/development/database.php
-
-	MYSQL_DATABASE=${MYSQL_DATABASE:-"ushahidi"}
-	MYSQL_USERNAME=${MYSQL_USERNAME:-"root"}
-	MYSQL_PASSWORD=${MYSQL_PASSWORD:-"changethisrootpassword"}
 
 	sed -i "s/'hostname'\s*=>\s*'localhost'/'hostname' => 'db'/" /data/application/config/environments/development/database.php && \
 	sed -i "s/'database'\s*=>\s*'database'/'database' => '$MYSQL_DATABASE'/" /data/application/config/environments/development/database.php && \
