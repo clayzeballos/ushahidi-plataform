@@ -25,9 +25,6 @@ nginx:
     - php:fpm
   volumes_from:
     - data
-  volumes:
-    - ./containers/nginx/sites-enabled:/etc/nginx/sites-enabled
-    - ./containers/nginx/conf.d:/etc/nginx/conf.d
 update:
   build: ./containers/update/
   volumes_from:
