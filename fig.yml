@@ -1,7 +1,7 @@
 # Ushahidi Platform Docker containers
 
 data:
-  build: ./containers/data/
+  build: .
   volumes:
     - .:/data
 db:

@@ -1,0 +1,26 @@
+.git
+.*swp
+*~
+*.DS_Store
+.htaccess
+composer.phar
+!bin/tests
+.vagrant/*
+.floo
+.flooignore
+.sublime-project
+build/*
+puppet/modules
+Puppetfile.lock
+.tmp/*
+
+# Kohana deployment specifics
+application/logs/*
+application/cache/*
+application/config/environments/development/*.php
+
+# Kohana tests
+application/tests/behat.yml
+
+# Kohana app uploads
+application/media/uploads/*
