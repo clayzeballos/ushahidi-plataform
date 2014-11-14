@@ -8,12 +8,10 @@ RUN apt-get update -y && \
     mv composer.phar /usr/local/bin/composer && \
     apt-get clean
 
-COPY template/database.php /root/template/database.php
-
 RUN mkdir -p /data
 VOLUME ["/data"]
 
-COPY dev-install.sh /entrypoint.sh
+COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 WORKDIR /data

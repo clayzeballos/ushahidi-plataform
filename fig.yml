@@ -10,9 +10,7 @@ db:
     - data
   environment:
     MYSQL_DATABASE: ushahidi
-    MYSQL_USER: ushahidi
-    MYSQL_PASSWORD: lamulamulamu
-    MYSQL_ROOT_PASSWORD: lamulamulamu
+    MYSQL_ROOT_PASSWORD: changethisrootpassword
 php:
   build: ./containers/php/
   links:
@@ -36,4 +34,5 @@ update:
     - data
   links:
     - db
-
+  environment:
+    MYSQL_DATABASE: ushahidi
