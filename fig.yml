@@ -1,13 +1,15 @@
 # Ushahidi Platform Docker containers
 
-data:
-  build: .
+dbdata:
+  build: ./containers/db-data/
+code:
+  build: ./containers/development-code/
   volumes:
     - .:/data
 db:
   image: mysql
   volumes_from:
-    - data
+    - dbdata
   environment:
     MYSQL_DATABASE: ushahidi
     MYSQL_ROOT_PASSWORD: changethisrootpassword
@@ -16,7 +18,7 @@ php:
   links:
     - db
   volumes_from:
-    - data
+    - code
 nginx:
   build: ./containers/nginx/
   ports:
@@ -24,11 +26,11 @@ nginx:
   links:
     - php:fpm
   volumes_from:
-    - data
+    - code
 update:
   build: ./containers/update/
   volumes_from:
-    - data
+    - code
   links:
     - db
   environment:
