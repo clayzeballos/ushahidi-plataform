@@ -1,4 +1,6 @@
+# Ushahidi platform php-fpm container
 FROM dockerfile/ubuntu
+MAINTAINER Robbie Mackay <robbie@ushahidi.com>
 
 # This should be replaced by an official php-fpm container soon..
 

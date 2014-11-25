@@ -1,4 +1,6 @@
+# Ushahidi platform nginx container
 FROM dockerfile/nginx
+MAINTAINER Robbie Mackay <robbie@ushahidi.com>
 
 RUN mkdir -p /data
 VOLUME ["/data"]

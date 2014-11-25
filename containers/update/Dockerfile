@@ -1,4 +1,6 @@
+# Ushahidi platform cli bin/update container
 FROM platform_php
+MAINTAINER Robbie Mackay <robbie@ushahidi.com>
 
 WORKDIR /tmp
 
