@@ -29,6 +29,11 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini && 
 RUN mkdir -p /data
 VOLUME ["/data"]
 
+RUN mkdir -p /data/application/media/uploads
+VOLUME ["/data/application/media/uploads"]
+
+WORKDIR /data
+
 EXPOSE 9000
 
 CMD ["/usr/sbin/php5-fpm", "-F"]
