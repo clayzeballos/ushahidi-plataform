@@ -43,4 +43,4 @@ update:
     - db
   environment:
     MYSQL_DATABASE: ushahidi
-  command: bin/update --production
+  command: bin/update --production --no-deps
