@@ -3,7 +3,7 @@ server {
     listen   [::]:80 default ipv6only=on; ## listen for ipv6
 
     charset UTF-8;
-    root /data/httpdocs;
+    root /code/httpdocs;
     index index.php index.html index.htm;
 
     server_name localhost;

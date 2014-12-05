@@ -6,7 +6,7 @@ data:
 code:
   build: ./containers/development-code/
   volumes:
-    - .:/data
+    - .:/code
 
 db:
   image: mysql

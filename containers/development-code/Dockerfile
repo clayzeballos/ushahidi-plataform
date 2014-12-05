@@ -1,10 +1,8 @@
-# Ushahidi platform code dev container
-# Used to mount code from the host machine
-
+# Ushahidi platform PHP code container (development)
 FROM dockerfile/ubuntu
 MAINTAINER Robbie Mackay <robbie@ushahidi.com>
 
-RUN mkdir -p /data
-VOLUME ["/data"]
+RUN mkdir -p /code
+VOLUME ["/code"]
 
 CMD ["true"]

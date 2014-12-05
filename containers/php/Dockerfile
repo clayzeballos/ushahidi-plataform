@@ -26,13 +26,13 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini && 
     sed -i '/^listen.allowed_clients/c;listen.allowed_clients =' /etc/php5/fpm/pool.d/www.conf && \
     sed -i '/^;catch_workers_output/ccatch_workers_output = yes' /etc/php5/fpm/pool.d/www.conf
 
-RUN mkdir -p /data
-VOLUME ["/data"]
+RUN mkdir -p /code
+VOLUME ["/code"]
 
-RUN mkdir -p /data/application/media/uploads
-VOLUME ["/data/application/media/uploads"]
+RUN mkdir -p /code/application/media/uploads
+VOLUME ["/code/application/media/uploads"]
 
-WORKDIR /data
+WORKDIR /code
 
 EXPOSE 9000
 

@@ -10,11 +10,11 @@ RUN apt-get update -y && \
     mv composer.phar /usr/local/bin/composer && \
     apt-get clean
 
-RUN mkdir -p /data
-VOLUME ["/data"]
+RUN mkdir -p /code
+VOLUME ["/code"]
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-WORKDIR /data
+WORKDIR /code
 CMD ["bin/update"]
