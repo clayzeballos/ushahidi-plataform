@@ -19,7 +19,7 @@ WORKDIR /data
 
 # Install composer
 RUN apt-get update -y && \
-    apt-get install -y curl git && \
+    apt-get install -y curl git php5-cli && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     apt-get clean
