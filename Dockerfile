@@ -17,6 +17,16 @@ RUN chown -R www-data /data/application/cache /data/application/logs /data/appli
 
 WORKDIR /data
 
+# Install composer
+RUN apt-get update -y && \
+    apt-get install -y curl git && \
+    curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer && \
+    apt-get clean
+
+# Install dependencies
+RUN ["bin/update", "--production", "--no-migrate"]
+
 # Make the volumes.. and hope this doesn't blat everything
 VOLUME ["/data"]
 
