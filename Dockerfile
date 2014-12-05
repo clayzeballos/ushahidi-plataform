@@ -5,17 +5,17 @@ FROM dockerfile/ubuntu
 MAINTAINER Robbie Mackay <robbie@ushahidi.com>
 
 # Add code to temp dir
-ADD . /tmp/data
-# Then move into /data
-RUN mv /tmp/data /data
+ADD . /tmp/code
+# Then move into /code
+RUN mv /tmp/code /code
 # This works around a docker bug
 # https://github.com/docker/docker/issues/783#issuecomment-56013588
 
 # Create and set permissions on writeable dirs
-RUN mkdir -p /data/application/cache /data/application/logs /data/application/media/uploads
-RUN chown -R www-data /data/application/cache /data/application/logs /data/application/media/uploads
+RUN mkdir -p /code/application/cache /code/application/logs /code/application/media/uploads
+RUN chown -R www-data /code/application/cache /code/application/logs /code/application/media/uploads
 
-WORKDIR /data
+WORKDIR /code
 
 # Install composer
 RUN apt-get update -y && \
@@ -28,6 +28,6 @@ RUN apt-get update -y && \
 RUN ["bin/update", "--production", "--no-migrate"]
 
 # Make the volumes.. and hope this doesn't blat everything
-VOLUME ["/data"]
+VOLUME ["/code"]
 
 CMD ["true"]
