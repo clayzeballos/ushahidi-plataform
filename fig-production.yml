@@ -27,7 +27,7 @@ php:
 nginx:
   build: ./containers/nginx/
   ports:
-    - "80:80"
+    - "8000:80"
   links:
     - php:fpm
   volumes_from:
