@@ -11,6 +11,8 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+
 abstract class Ushahidi_Core {
 
 	/**
@@ -54,6 +56,24 @@ abstract class Ushahidi_Core {
 			'db' => $di->lazyGet('kohana.db.multisite')
 		];
 
+		$di->set('symfony.http.request', function() use ($di) {
+
+			$request = SymfonyRequest::createFromGlobals();
+
+			// probably move this to some kind of helper class
+			if (!$request->headers->has('Authorization') && function_exists('apache_request_headers')) 
+	        {
+		        $all = apache_request_headers();
+		        if (isset($all['Authorization'])) 
+		        {
+		            $request->headers->set('Authorization', $all['Authorization']);
+		        }
+		    }
+
+			return $request;
+
+		});
+
 		$di->set('session.user', function() use ($di) {
 			// Using the OAuth resource server, get the userid (owner id) for this request
 			$server = $di->get('oauth.server.resource');
@@ -82,24 +102,28 @@ abstract class Ushahidi_Core {
 
 		// OAuth servers
 		$di->set('oauth.server.auth', function() use ($di) {
-			$server = $di->newInstance('League\OAuth2\Server\Authorization');
-			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\AuthCode'));
-			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\RefreshToken'));
-			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\Password'));
-			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\ClientCredentials'));
+			$server = $di->newInstance('League\OAuth2\Server\AuthorizationServer');
+			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\AuthCodeGrant'));
+			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\RefreshTokenGrant'));
+			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\PasswordGrant'));
+			$server->addGrantType($di->newInstance('League\OAuth2\Server\Grant\ClientCredentialsGrant'));
 			return $server;
 		});
-		$di->set('oauth.server.resource', $di->lazyNew('League\OAuth2\Server\Resource'));
+		$di->set('oauth.server.resource', $di->lazyNew('OAuth2_ResourceServer'));
 
 		// Use Kohana requests for OAuth server requests
-		$di->setter['League\OAuth2\Server\Resource']['setRequest'] = $di->lazyNew('OAuth2_Request');
-		$di->setter['League\OAuth2\Server\Authorization']['setRequest'] = $di->lazyNew('OAuth2_Request');
+		$di->setter['OAuth2_ResourceServer']['setRequest'] = $di->lazyGet('symfony.http.request');
+		$di->setter['League\OAuth2\Server\AuthorizationServer']['setRequest'] = $di->lazyGet('symfony.http.request');
+		$di->setter['League\OAuth2\Server\AuthorizationServer']['setSessionStorage'] = $di->lazyNew('OAuth2_Storage_Session');
+		$di->setter['League\OAuth2\Server\AuthorizationServer']['setClientStorage'] = $di->lazyNew('OAuth2_Storage_Client');
+		$di->setter['League\OAuth2\Server\AuthorizationServer']['setScopeStorage'] = $di->lazyNew('OAuth2_Storage_Scope');
+		$di->setter['League\OAuth2\Server\AuthorizationServer']['setAccessTokenStorage'] = $di->lazyNew('OAuth2_Storage_AccessToken');
 
 		// Custom password authenticator
-		$di->setter['League\OAuth2\Server\Grant\Password']['setVerifyCredentialsCallback'] = function($username, $password) {
-			$usecase = service('factory.usecase')->get('users', 'login')
-				->setIdentifiers(compact('username', 'password'));
-
+		$di->setter['League\OAuth2\Server\Grant\PasswordGrant']['setVerifyCredentialsCallback'] = function($username, $password) {
+			$usecase = service('usecase.user.login');
+			// todo: parse this? inject it?
+			$data    = new Ushahidi\Core\Usecase\User\LoginData(compact('username', 'password'));
 			try
 			{
 				$data = $usecase->interact();
@@ -112,13 +136,23 @@ abstract class Ushahidi_Core {
 		};
 
 		// Custom storage interfaces for OAuth servers
-		$di->params['League\OAuth2\Server\Authorization'] = [
-			'client'  => $di->lazyGet('repository.oauth.client'),
-			'session' => $di->lazyGet('repository.oauth.session'),
-			'scope'   => $di->lazyGet('repository.oauth.scope'),
-			];
-		$di->params['League\OAuth2\Server\Resource'] = [
-			'session' => $di->lazyNew('OAuth2_Storage_Session'),
+		// $di->params['League\OAuth2\Server\AuthorizationServer'] = [
+		// 	'client'  => $di->lazyGet('repository.oauth.client'),
+		// 	'session' => $di->lazyGet('repository.oauth.session'),
+		// 	'scope'   => $di->lazyGet('repository.oauth.scope'),
+		// 	];
+
+		$di->setter['Ushahidi_Rest']['setHttpRequest'] = $di->lazyGet('symfony.http.request');
+			
+		$di->params['OAuth2_ResourceServer'] = [
+			'sessionStorage' 	 => $di->lazyNew('OAuth2_Storage_Session'),
+			'clientStorage' 	 => $di->lazyNew('OAuth2_Storage_Client'),
+			'scopeStorage'		 => $di->lazyNew('OAuth2_Storage_Scope'),
+			'accessTokenStorage' => $di->lazyNew('OAuth2_Storage_AccessToken'),
+			/**
+			 * @todo  create access token class
+			 */
+			//'accessTokenStorage' => $di->lazyNew('OAuth2_Storage_AccessToken'),
 			];
 		$di->params['OAuth2_Storage'] = [
 			'db' => $di->lazyGet('kohana.db'),

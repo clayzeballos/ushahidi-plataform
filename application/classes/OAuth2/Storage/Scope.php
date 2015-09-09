@@ -15,40 +15,23 @@ use League\OAuth2\Server\Storage\ScopeInterface;
 
 class OAuth2_Storage_Scope extends OAuth2_Storage implements ScopeInterface
 {
-	/**
-	 * Return information about a scope
-	 *
-	 * Example SQL query:
-	 *
-	 * <code>
-	 * SELECT * FROM oauth_scopes WHERE scope = :scope
-	 * </code>
-	 *
-	 * Response:
-	 *
-	 * <code>
-	 * Array
-	 * (
-	 *     [id] => (int) The scope's ID
-	 *     [scope] => (string) The scope itself
-	 *     [name] => (string) The scope's name
-	 *     [description] => (string) The scope's description
-	 * )
-	 * </code>
-	 *
-	 * @param  string     $scope     The scope
-	 * @param  string     $clientId  The client ID (default = "null")
-	 * @param  string     $grantType The grant type used in the request (default = "null")
-	 * @return bool|array If the scope doesn't exist return false
-	 */
-	public function getScope($scope, $clientId = null, $grantType = null)
+
+    /**
+     * {@inheritdoc}
+     */
+	public function get($scope, $grantType = null, $clientId = null)
 	{
 		// NOTE: this implementation does not implement any grant type checks!
+		$query = $this->createSelectQuery('oauth_scopes', ['id' => $scope]);
+		$result = $this->fetchSingleResult($query);
 
-		$where = array(
-			'scope' => $scope,
-			);
-		$query = $this->select('oauth_scopes', $where);
-		return $this->select_one_result($query);
+		if (!$result) {
+            return null;
+        }
+
+        return (new ScopeEntity($this->server))->hydrate([
+            'id'          =>  $result['id'],
+            'description' =>  $result['description'],
+        ]);
 	}
 }

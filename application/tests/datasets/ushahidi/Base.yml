@@ -723,11 +723,13 @@ oauth_sessions:
     client_id: "demoapp"
     owner_type: "client"
     owner_id: "demoapp"
+    client_redirect_uri: "/"
   -
     id: 2
     client_id: "demoapp"
     owner_type: "user"
     owner_id: 2
+    client_redirect_uri: "/"
   -
     id: 3
     client_id: "demoapp"
@@ -738,294 +740,260 @@ oauth_sessions:
     client_id: "demoapp"
     owner_type: "user"
     owner_id: 3
-oauth_session_redirects:
+oauth_access_tokens:
   -
-    session_id: 1
-    redirect_uri: "/"
-  -
-    session_id: 2
-    redirect_uri: "/"
-oauth_session_access_tokens:
-  -
-    id: 1
     session_id: 2
     access_token: "testingtoken"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
   -
-    id: 2
     session_id: 2
     access_token: "defaulttoken"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
   -
-    id: 3
     session_id: 3
     access_token: "testbasicuser"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
   -
-    id: 4
     session_id: 2
     access_token: "testadminuser"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
   -
-    id: 5
     session_id: 4
     access_token: "testbasicuser2"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
   -
-    id: 6
     session_id: 1
     access_token: "testanon"
-    access_token_expires: 1893477600
+    expire_time: 1893477600
 oauth_scopes:
   -
-    id: 1
-    scope: api
-    name: api
+    #id: 1
+    id: api
+    description: api
   -
-    id: 2
-    scope: posts
-    name: posts
+    #id: 2
+    id: posts
+    description: posts
   -
-    id: 3
-    scope: forms
-    name: forms
+    #id: 3
+    id: forms
+    description: forms
   -
-    id: 4
-    scope: sets
-    name: set
+    #id: 4
+    id: sets
+    description: set
   -
-    id: 5
-    scope: tags
-    name: tags
+    #id: 5
+    id: tags
+    description: tags
   -
-    id: 6
-    scope: users
-    name: users
+    #id: 6
+    id: users
+    description: users
   -
-    id: 7
-    scope: media
-    name: media
+    #id: 7
+    id: media
+    description: media
   -
-    id: 8
-    scope: config
-    name: config
+    #id: 8
+    id: config
+    description: config
   -
-    id: 9
-    scope: messages
-    name: messages
+    #id: 9
+    id: messages
+    description: messages
   -
-    id: 10
-    scope: dataproviders
-    name: dataproviders
+    #id: 10
+    id: dataproviders
+    description: dataproviders
   -
-    id: 11
-    scope: stats
-    name: stats
+    #id: 11
+    id: stats
+    description: stats
   -
-    id: 12
-    scope: layers
-    name: layers
-  -
-    id: 13
-    scope: savedsearches
-    name: savedsearches
-oauth_session_token_scopes:
+    #id: 12
+    id: layers
+    description: layers
+oauth_session_scopes:
   # for testingtoken
   -
-    session_access_token_id: 1
-    scope_id: 1
+    session_id: 2
+    scope: api
   -
-    session_access_token_id: 1
-    scope_id: 2
+    session_id: 2
+    scope: posts
   -
-    session_access_token_id: 1
-    scope_id: 11
+    session_id: 2
+    scope: stats
 
   # for defaulttoken
   -
-    session_access_token_id: 2
-    scope_id: 1
+    session_id: 2
+    scope: api
   -
-    session_access_token_id: 2
-    scope_id: 2
+    session_id: 2
+    scope: posts
   -
-    session_access_token_id: 2
-    scope_id: 3
+    session_id: 2
+    scope: forms
   -
-    session_access_token_id: 2
-    scope_id: 4
+    session_id: 2
+    scope: sets
   -
-    session_access_token_id: 2
-    scope_id: 5
+    session_id: 2
+    scope: tags
   -
-    session_access_token_id: 2
-    scope_id: 6
+    session_id: 2
+    scope: users
   -
-    session_access_token_id: 2
-    scope_id: 7
+    session_id: 2
+    scope: media
   -
-    session_access_token_id: 2
-    scope_id: 8
+    session_id: 2
+    scope: config
   -
-    session_access_token_id: 2
-    scope_id: 9
+    session_id: 2
+    scope: messages
   -
-    session_access_token_id: 2
-    scope_id: 10
+    session_id: 2
+    scope: dataproviders
   -
-    session_access_token_id: 2
-    scope_id: 11
-  -
-    session_access_token_id: 2
-    scope_id: 12
-  -
-    session_access_token_id: 2
-    scope_id: 13
+    session_id: 2
+    scope: stats
+  - 
+    session_id: 2
+    scope: layers
 
   # for testbasicuser
   -
-    session_access_token_id: 3
-    scope_id: 1
+    session_id: 3
+    scope: api
   -
-    session_access_token_id: 3
-    scope_id: 2
+    session_id: 3
+    scope: posts
   -
-    session_access_token_id: 3
-    scope_id: 3
+    session_id: 3
+    scope: forms
   -
-    session_access_token_id: 3
-    scope_id: 4
+    session_id: 3
+    scope: sets
   -
-    session_access_token_id: 3
-    scope_id: 5
+    session_id: 3
+    scope: tags
   -
-    session_access_token_id: 3
-    scope_id: 6
+    session_id: 3
+    scope: users
   -
-    session_access_token_id: 3
-    scope_id: 7
+    session_id: 3
+    scope: media
   -
-    session_access_token_id: 3
-    scope_id: 8
+    session_id: 3
+    scope: config
   -
-    session_access_token_id: 3
-    scope_id: 9
+    session_id: 3
+    scope: messages
   -
-    session_access_token_id: 3
-    scope_id: 10
-  -
-    session_access_token_id: 3
-    scope_id: 13
+    session_id: 3
+    scope: dataproviders
   # for testadminuser
   -
-    session_access_token_id: 4
-    scope_id: 1
+    session_id: 2
+    scope: api
   -
-    session_access_token_id: 4
-    scope_id: 2
+    session_id: 2
+    scope: posts
   -
-    session_access_token_id: 4
-    scope_id: 3
+    session_id: 2
+    scope: forms
   -
-    session_access_token_id: 4
-    scope_id: 4
+    session_id: 2
+    scope: sets
   -
-    session_access_token_id: 4
-    scope_id: 5
+    session_id: 2
+    scope: tags
   -
-    session_access_token_id: 4
-    scope_id: 6
+    session_id: 2
+    scope: users
   -
-    session_access_token_id: 4
-    scope_id: 7
+    session_id: 2
+    scope: media
   -
-    session_access_token_id: 4
-    scope_id: 8
+    session_id: 2
+    scope: config
   -
-    session_access_token_id: 4
-    scope_id: 9
+    session_id: 2
+    scope: messages
   -
-    session_access_token_id: 4
-    scope_id: 10
-  -
-    session_access_token_id: 4
-    scope_id: 11
-  -
-    session_access_token_id: 4
-    scope_id: 13
+    session_id: 2
+    scope: dataproviders
 
   # for testbasicuser2
   -
-    session_access_token_id: 5
-    scope_id: 1
+    session_id: 4
+    scope: api
   -
-    session_access_token_id: 5
-    scope_id: 2
+    session_id: 4
+    scope: posts
   -
-    session_access_token_id: 5
-    scope_id: 3
+    session_id: 4
+    scope: forms
   -
-    session_access_token_id: 5
-    scope_id: 4
+    session_id: 4
+    scope: sets
   -
-    session_access_token_id: 5
-    scope_id: 5
+    session_id: 4
+    scope: tags
   -
-    session_access_token_id: 5
-    scope_id: 6
+    session_id: 4
+    scope: users
   -
-    session_access_token_id: 5
-    scope_id: 7
+    session_id: 4
+    scope: media
   -
-    session_access_token_id: 5
-    scope_id: 8
+    session_id: 4
+    scope: config
   -
-    session_access_token_id: 5
-    scope_id: 9
+    session_id: 4
+    scope: messages
   -
-    session_access_token_id: 5
-    scope_id: 10
-  -
-    session_access_token_id: 5
-    scope_id: 13
+    session_id: 4
+    scope: dataproviders
   # for testanon
   -
-    session_access_token_id: 6
-    scope_id: 1
+    session_id: 1
+    scope: api
   -
-    session_access_token_id: 6
-    scope_id: 2
+    session_id: 1
+    scope: posts
   -
-    session_access_token_id: 6
-    scope_id: 3
+    session_id: 1
+    scope: forms
   -
-    session_access_token_id: 6
-    scope_id: 4
+    session_id: 1
+    scope: sets
   -
-    session_access_token_id: 6
-    scope_id: 5
+    session_id: 1
+    scope: tags
   -
-    session_access_token_id: 6
-    scope_id: 6
+    session_id: 1
+    scope: users
   -
-    session_access_token_id: 6
-    scope_id: 7
+    session_id: 1
+    scope: media
   -
-    session_access_token_id: 6
-    scope_id: 8
+    session_id: 1
+    scope: config
   -
-    session_access_token_id: 6
-    scope_id: 9
+    session_id: 1
+    scope: messages
   -
-    session_access_token_id: 6
-    scope_id: 10
-  -
-    session_access_token_id: 6
-    scope_id: 13
+    session_id: 1
+    scope: dataproviders
 # include other oauth tables to ensure a blank slate for test runs
-oauth_session_refresh_tokens:
-oauth_session_authcodes:
-oauth_session_authcode_scopes:
+oauth_access_token_scopes:
+oauth_auth_code_scopes:
+oauth_auth_codes:
+oauth_refresh_tokens:
 # media
 media:
   -

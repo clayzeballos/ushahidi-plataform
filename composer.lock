@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "875fb96aafd10ddf8e872965eb39723f",
+    "hash": "5cc60325b21ae57c2c571ee6b9beb866",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -370,12 +370,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kohana/cache.git",
-                "reference": "8bcf01225f7b32fc7fbf6929826ff9791831849f"
+                "reference": "59e15d7aa784d90bf1a296d5e73f69a2fc38243f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kohana/cache/zipball/8bcf01225f7b32fc7fbf6929826ff9791831849f",
-                "reference": "8bcf01225f7b32fc7fbf6929826ff9791831849f",
+                "url": "https://api.github.com/repos/kohana/cache/zipball/59e15d7aa784d90bf1a296d5e73f69a2fc38243f",
+                "reference": "59e15d7aa784d90bf1a296d5e73f69a2fc38243f",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 "framework",
                 "kohana"
             ],
-            "time": "2015-06-27 06:18:49"
+            "time": "2015-09-05 17:02:05"
         },
         {
             "name": "kohana/core",
@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kohana/image.git",
-                "reference": "c8d7dc42f751d4ce4819292c09cbf16dcc7a6004"
+                "reference": "fadd99e6b1533c9c89608960ea5962dde30d8562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kohana/image/zipball/c8d7dc42f751d4ce4819292c09cbf16dcc7a6004",
-                "reference": "c8d7dc42f751d4ce4819292c09cbf16dcc7a6004",
+                "url": "https://api.github.com/repos/kohana/image/zipball/fadd99e6b1533c9c89608960ea5962dde30d8562",
+                "reference": "fadd99e6b1533c9c89608960ea5962dde30d8562",
                 "shasum": ""
             },
             "require": {
@@ -537,7 +537,7 @@
                 "image",
                 "kohana"
             ],
-            "time": "2014-11-28 09:10:25"
+            "time": "2015-09-05 17:02:20"
         },
         {
             "name": "kohana/minion",
@@ -545,12 +545,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kohana/minion.git",
-                "reference": "83ea70a790b7b0f0b0f5d75c4d9d3b4e42418c2d"
+                "reference": "be6ab4c5c4cb34b815bbf9693a6487bf11fb20c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kohana/minion/zipball/83ea70a790b7b0f0b0f5d75c4d9d3b4e42418c2d",
-                "reference": "83ea70a790b7b0f0b0f5d75c4d9d3b4e42418c2d",
+                "url": "https://api.github.com/repos/kohana/minion/zipball/be6ab4c5c4cb34b815bbf9693a6487bf11fb20c2",
+                "reference": "be6ab4c5c4cb34b815bbf9693a6487bf11fb20c2",
                 "shasum": ""
             },
             "require": {
@@ -594,7 +594,7 @@
                 "kohana",
                 "task"
             ],
-            "time": "2015-01-05 20:10:33"
+            "time": "2015-09-05 17:02:32"
         },
         {
             "name": "league/csv",
@@ -652,6 +652,51 @@
                 "write"
             ],
             "time": "2015-06-10 11:12:37"
+        },
+        {
+            "name": "league/event",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/event.git",
+                "reference": "9d9bd9e086b3acad09ab03f5317d27511039d71c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/event/zipball/9d9bd9e086b3acad09ab03f5317d27511039d71c",
+                "reference": "9d9bd9e086b3acad09ab03f5317d27511039d71c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "henrikbjorn/phpspec-code-coverage": "1.0.*@dev",
+                "phpspec/phpspec": "2.0.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Event\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Event package",
+            "keywords": [
+                "emitter",
+                "event",
+                "listener"
+            ],
+            "time": "2014-10-11 16:18:15"
         },
         {
             "name": "league/flysystem",
@@ -722,37 +767,35 @@
         },
         {
             "name": "league/oauth2-server",
-            "version": "3.2.4",
+            "version": "4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-server.git",
-                "reference": "13cd0cacdf1e9ae23fa073d4408a336246babb8e"
+                "reference": "7398bee59e3abb55be33e17a11b2d3a9c1cf649c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/13cd0cacdf1e9ae23fa073d4408a336246babb8e",
-                "reference": "13cd0cacdf1e9ae23fa073d4408a336246babb8e",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-server/zipball/7398bee59e3abb55be33e17a11b2d3a9c1cf649c",
+                "reference": "7398bee59e3abb55be33e17a11b2d3a9c1cf649c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "league/event": "1.0.*",
+                "php": ">=5.4.0",
+                "symfony/http-foundation": "~2.5"
             },
             "replace": {
+                "league/oauth2server": "*",
                 "lncd/oauth2": "*"
             },
             "require-dev": {
-                "league/phpunit-coverage-listener": "~1.0",
-                "mockery/mockery": "~0.8"
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.3.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2.x-dev"
-                }
-            },
             "autoload": {
-                "psr-0": {
-                    "League\\OAuth2\\Server": "src/"
+                "psr-4": {
+                    "League\\OAuth2\\Server\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -768,19 +811,23 @@
                 }
             ],
             "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
+            "homepage": "http://oauth2.thephpleague.com/",
             "keywords": [
                 "Authentication",
                 "api",
                 "auth",
+                "authorisation",
                 "authorization",
                 "oauth",
+                "oauth 2",
+                "oauth 2.0",
                 "oauth2",
                 "protect",
                 "resource",
                 "secure",
                 "server"
             ],
-            "time": "2014-09-08 21:01:33"
+            "time": "2014-12-15 17:34:38"
         },
         {
             "name": "league/url",
@@ -1270,6 +1317,59 @@
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
             "time": "2015-08-27 07:03:53"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "2.8.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "3f179ebcfc2f9cb82a47e890ed4622f48cfb4602"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/3f179ebcfc2f9cb82a47e890ed4622f48cfb4602",
+                "reference": "3f179ebcfc2f9cb82a47e890ed4622f48cfb4602",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4|~3.0.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-08-27 06:53:13"
         },
         {
             "name": "symfony/property-access",
@@ -2171,12 +2271,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "1f671f8deef2e591f0641a345144558fa8ff6d58"
+                "reference": "5a770b914549cf2a897cbbaf379eb5adf410d464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/1f671f8deef2e591f0641a345144558fa8ff6d58",
-                "reference": "1f671f8deef2e591f0641a345144558fa8ff6d58",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/5a770b914549cf2a897cbbaf379eb5adf410d464",
+                "reference": "5a770b914549cf2a897cbbaf379eb5adf410d464",
                 "shasum": ""
             },
             "bin": [
@@ -2207,7 +2307,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2015-08-21 17:18:32"
+            "time": "2015-09-08 13:40:29"
         },
         {
             "name": "kohana/unittest",
@@ -2215,12 +2315,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kohana/unittest.git",
-                "reference": "a95fd65e53395f4e0af939180803d5c482a8a18d"
+                "reference": "1891b2432125fec61ec998bb55ddf329a2745405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kohana/unittest/zipball/a95fd65e53395f4e0af939180803d5c482a8a18d",
-                "reference": "a95fd65e53395f4e0af939180803d5c482a8a18d",
+                "url": "https://api.github.com/repos/kohana/unittest/zipball/1891b2432125fec61ec998bb55ddf329a2745405",
+                "reference": "1891b2432125fec61ec998bb55ddf329a2745405",
                 "shasum": ""
             },
             "require": {
@@ -2263,7 +2363,7 @@
                 "framework",
                 "kohana"
             ],
-            "time": "2015-05-25 11:17:08"
+            "time": "2015-09-05 17:03:50"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -3230,12 +3330,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
-                "reference": "4f297d7e00c375b6ab03732e076f65799a73937d"
+                "reference": "4dbd336331f5e7ba7a6f9e4f9f608b89093f49b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/4f297d7e00c375b6ab03732e076f65799a73937d",
-                "reference": "4f297d7e00c375b6ab03732e076f65799a73937d",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/4dbd336331f5e7ba7a6f9e4f9f608b89093f49b3",
+                "reference": "4dbd336331f5e7ba7a6f9e4f9f608b89093f49b3",
                 "shasum": ""
             },
             "require": {
@@ -3277,7 +3377,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:11:14"
+            "time": "2015-09-06 08:37:06"
         },
         {
             "name": "symfony/css-selector",
@@ -3338,12 +3438,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "99c05679526e9293783ce3a9059890b47da1d97e"
+                "reference": "ae686a9adbcdd0a5852ee44af1f7c770d3b90f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/99c05679526e9293783ce3a9059890b47da1d97e",
-                "reference": "99c05679526e9293783ce3a9059890b47da1d97e",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/ae686a9adbcdd0a5852ee44af1f7c770d3b90f11",
+                "reference": "ae686a9adbcdd0a5852ee44af1f7c770d3b90f11",
                 "shasum": ""
             },
             "require": {
@@ -3390,7 +3490,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:31:10"
+            "time": "2015-09-06 08:02:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -3451,12 +3551,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "d7246885b7fe4cb5a2786bda34362d2f0e40b730"
+                "reference": "8deea7a9f5560b7e70eab8d72e5e8f2d45564d15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/d7246885b7fe4cb5a2786bda34362d2f0e40b730",
-                "reference": "d7246885b7fe4cb5a2786bda34362d2f0e40b730",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/8deea7a9f5560b7e70eab8d72e5e8f2d45564d15",
+                "reference": "8deea7a9f5560b7e70eab8d72e5e8f2d45564d15",
                 "shasum": ""
             },
             "require": {
@@ -3501,7 +3601,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-06-24 15:32:32"
+            "time": "2015-08-24 07:18:02"
         },
         {
             "name": "symfony/finder",

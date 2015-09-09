@@ -10,7 +10,7 @@
  */
 
 use Ushahidi\Api\Endpoint;
-use League\OAuth2\Server\Exception\OAuth2Exception;
+use League\OAuth2\Server\Exception\OAuthException;
 use League\OAuth2\Server\Exception\MissingAccessTokenException;
 
 abstract class Ushahidi_Rest extends Controller {
@@ -256,15 +256,14 @@ abstract class Ushahidi_Rest extends Controller {
 		$require_header = $this->request->method() !== Request::GET;
 		$required_scope = $this->_scope();
 
+		$headers = $this->request->headers();
+
 		try
 		{
-			$server->isValid($require_header);
-			if ($required_scope)
-			{
-				$server->hasScope($required_scope, true);
-			}
+			$server->isValidRequest($require_header);
+			$server->verifyScope($required_scope);
 		}
-		catch (OAuth2Exception $e)
+		catch (OAuthException $e)
 		{
 			if (!$this->_is_auth_required() AND $e instanceof MissingAccessTokenException)
 			{
@@ -272,9 +271,13 @@ abstract class Ushahidi_Rest extends Controller {
 				return;
 			}
 
+			$raw_headers = $e->getHttpHeaders();
+
+			
+
 			// Auth server returns an indexed array of headers, along with the server
 			// status as a header, which must be converted to use with Kohana.
-			$raw_headers = $server::getExceptionHttpHeaders($server::getExceptionType($e->getCode()));
+			//$raw_headers = $server::getExceptionHttpHeaders($server::getExceptionType($e->getCode()));
 
 			$status = 400;
 			$headers = array();
@@ -290,10 +293,24 @@ abstract class Ushahidi_Rest extends Controller {
 					$headers[$name] = $value;
 				}
 			}
-
 			$exception = HTTP_Exception::factory($status, $e->getMessage());
 			if ($status === 401)
 			{
+	            $authScheme = null;
+
+                $authHeader = $this->request->headers()['authorization'];
+                if ($authHeader !== null) {
+                    if (strpos($authHeader, 'Bearer') === 0) {
+                        $authScheme = 'Bearer';
+                    } elseif (strpos($authHeader, 'Basic') === 0) {
+                        $authScheme = 'Basic';
+                    }
+                }
+	
+	            if ($authScheme !== null) {
+	                $headers['WWW-Authenticate'] = $authScheme.' realm=""';
+	            }
+
 				// Pass through additional WWW-Authenticate headers, but only for
 				// HTTP 401 Unauthorized responses!
 				$exception->headers($headers);
