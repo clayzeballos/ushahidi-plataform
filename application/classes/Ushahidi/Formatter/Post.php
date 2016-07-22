@@ -16,6 +16,13 @@ class Ushahidi_Formatter_Post extends Ushahidi_Formatter_API
 {
 	use FormatterAuthorizerMetadata;
 
+	protected $valueFormatter;
+
+	public function __construct(Formatter $valueFormatter)
+	{
+		$this->valueFormatter = $valueFormatter;
+	}
+
 	protected function get_field_name($field)
 	{
 		$remap = [
@@ -67,5 +74,19 @@ class Ushahidi_Formatter_Post extends Ushahidi_Formatter_API
 	protected function format_post_date($value)
 	{
 		return $value ? $value->format(DateTime::W3C) : NULL;
+	}
+
+	protected function format_values($values)
+	{
+		$output = [];
+		$formatter = $this->valueFormatter;
+		foreach ($values as $key => $attr)
+		{
+			foreach ($attr as $value) {
+				$output[$key][] = $formatter($value);
+			}
+		}
+
+		return $output;
 	}
 }
