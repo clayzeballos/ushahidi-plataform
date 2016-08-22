@@ -69,4 +69,9 @@ abstract class StaticEntity implements Entity
 	{
 		return ['id', 'created'];
 	}
+
+	protected function getRelations()
+	{
+		return [];
+	}
 }

@@ -23,7 +23,8 @@ class ReadUsecase implements Usecase
 	// setter method for the tool. For example, the AuthorizerTrait provides
 	// a `setAuthorizer` method which only accepts `Authorizer` instances.
 	use AuthorizerTrait,
-		FormatterTrait;
+		FormatterTrait,
+		CleanerTrait;
 
 	// - IdentifyRecords for setting entity lookup parameters
 	use IdentifyRecords;
@@ -68,6 +69,9 @@ class ReadUsecase implements Usecase
 
 		// ... verify that the entity can be read by the current user
 		$this->verifyReadAuth($entity);
+
+		// ... sanitize restricted relation data out of the entity
+		$this->sanitizeEntityRelations($entity);
 
 		// ... and return the formatted result.
 		return $this->formatter->__invoke($entity);

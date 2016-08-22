@@ -49,4 +49,11 @@ interface Entity
 	 * @return Array
 	 */
 	public function getChanged();
+
+	/**
+	 * Get all fields that map to related entities
+	 *
+	 * @return Array
+	 */
+	public function getRelations();
 }

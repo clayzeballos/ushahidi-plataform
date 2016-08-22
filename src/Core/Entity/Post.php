@@ -99,4 +99,9 @@ class Post extends StaticEntity
 	{
 		return array_merge(parent::getImmutable(), ['type', 'form_id']);
 	}
+
+	protected function getRelations()
+	{
+		return ['tags', 'sets', 'user_id', 'form_id'];
+	}
 }

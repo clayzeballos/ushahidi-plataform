@@ -71,4 +71,10 @@ abstract class DynamicEntity implements Entity
 	{
 		return ['id', 'allowed_privileges'];
 	}
+
+	// Entity
+	protected function getRelations()
+	{
+		return [];
+	}
 }
