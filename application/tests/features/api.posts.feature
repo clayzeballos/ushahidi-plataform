@@ -93,7 +93,7 @@ Feature: Testing the Posts API
 		And the response has a "title" property
 		And the "title" property equals "Test post"
 		And the response has a "tags.0.id" property
-		And the "values.missing_date.0" property equals "2016-05-31 00:00:00"
+		And the "values.missing_date.0" property equals "2016-05-31T00:00:00+00:00"
 		And the response has a "status" property
 		And the "status" property equals "draft"
 		Then the guzzle status code should be 200
@@ -589,7 +589,7 @@ Feature: Testing the Posts API
 		And the response has a "tags.1.id" property
 		And the response has a "title" property
 		And the "title" property equals "Updated Test Post"
-		And the "values.missing_date.0" property equals "2016-05-31 00:00:00"
+		And the "values.missing_date.0" property equals "2016-05-31T00:00:00+00:00"
 		And the "values.last_location_point.0.lon" property equals "-85.39"
 		Then the guzzle status code should be 200
 
