@@ -24,7 +24,7 @@ class Ushahidi_Formatter_Post_GeoJSON implements Formatter
 		{
 			foreach($values as $value)
 			{
-				if ($geometry = $this->valueToGeometry($value))
+				if ($geometry = $this->valueToGeometry($value['value']))
 				{
 					$color = ltrim($entity->color, '#');
 					$color = $color ? '#' . $color : null;

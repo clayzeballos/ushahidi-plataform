@@ -36,7 +36,7 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 			{
 				foreach ($values as $value)
 				{
-					if ($geometry = $this->valueToGeometry($value))
+					if ($geometry = $this->valueToGeometry($value['value']))
 					{
 						$geometries[] = $geometry;
 					}
@@ -47,7 +47,7 @@ class Ushahidi_Formatter_Post_GeoJSONCollection implements Formatter
 			{
 				$color = ltrim($entity->color, '#');
 				$color = $color ? '#' . $color : null;
-				
+
 				$output['features'][] = [
 					'type' => 'Feature',
 					'geometry' => [
