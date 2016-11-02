@@ -13,13 +13,13 @@ use Ushahidi\Core\Entity\PostRepository;
 
 class Ushahidi_Repository_Post_Export extends Ushahidi_Repository_Post
 {
-  public function getFormAttributes($values) {
-    $attributes = [];
-		foreach ($values as $key => $val)
-    {
-      $attribute = $this->form_attribute_repo->getByKey($key);
-      $attributes[$key] = $attribute->label;
+    public function getFormAttributes($values) {
+        $attributes = [];
+        foreach ($values as $key => $val)
+        {
+            $attribute = $this->form_attribute_repo->getByKey($key);
+            $attributes[$key] = $attribute->label;
+        }
+        return $attributes;
     }
-    return $attributes;
-  }
 }

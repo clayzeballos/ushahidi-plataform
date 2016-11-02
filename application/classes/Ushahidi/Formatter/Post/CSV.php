@@ -70,9 +70,10 @@ class Ushahidi_Formatter_Post_CSV implements Formatter
 				{
 					unset($record[$key]);
 
-					foreach ($val as $key => $val)
+					foreach ($val as $attr_key => $attr_val)
 					{
-						$this->assignRowValue($record, $key, $val[0]);
+						// FIXME: handle fields with multiple values
+						$this->assignRowValue($record, $attr_key, $attr_val[0]['value']);
 					}
 				}
 
