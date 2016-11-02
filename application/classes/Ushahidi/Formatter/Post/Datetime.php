@@ -17,7 +17,9 @@ class Ushahidi_Formatter_Post_Datetime implements Formatter
 	public function __invoke($data)
 	{
 		if ($data['value']) {
-			return date(DateTime::W3C, strtotime($data['value']));
+			// Parse date, assuming originally stored in UTC
+			$value = date_create($data['value'], new DateTimeZone('UTC'));
+			return $value->format(DateTime::W3C);
 		}
 		return null;
 	}

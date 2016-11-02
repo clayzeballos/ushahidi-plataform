@@ -21,8 +21,10 @@ class Ushahidi_Repository_Post_Datetime extends Ushahidi_Repository_Post_Value
 	}
 
 	private function convertToMysqlFormat($value) {
-		$value = date("Y-m-d H:i:s", strtotime($value));
-		return $value;
+		$value = date_create($value, new DateTimeZone('UTC'));
+		// Convert to UTC (needed in case date came with a tz)
+		$value->setTimezone(new DateTimeZone('UTC'));
+		return $value->format('Y-m-d H:i:s');
 	}
 
 	public function createValue($value, $form_attribute_id, $post_id)
