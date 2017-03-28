@@ -25,7 +25,7 @@
         "kohana/image" : "3.3.*@dev",
         "kohana/minion" : "3.3.*@dev",
         "ohanzee/database": "~0.1.2",
-        "robmorgan/phinx": "~0.4.1",
+        "robmorgan/phinx": "~0.7.0",
         "ushahidi/shadowhand-email": "dev-master",
         "symm/gisconverter": "~1.0.5",
         "twilio/sdk": "3.12.*",
@@ -45,7 +45,6 @@
         "beheh/flaps": "dev-master",
         "doctrine/cache": "^1.5@dev",
         "satooshi/php-coveralls": "^2.0@dev",
-        "henrikbjorn/phpspec-code-coverage": "~2.0",
         "ramsey/uuid": "^3.4.1",
         "sentry/sentry": "~1.5"
     },
@@ -59,7 +58,7 @@
         "phpunit/phpunit": "~4.8",
         "phpunit/dbunit": "~1.4",
         "phpspec/phpspec": "~2.4",
-        "symfony/console": "2.6.*",
+        "symfony/console": "2.8.*@dev",
         "squizlabs/php_codesniffer": "1.5.*",
         "heroku/heroku-buildpack-php": "dev-master"
     },
