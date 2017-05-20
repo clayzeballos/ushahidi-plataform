@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39277cc22c776787a8f8e911d8023c4c",
-    "content-hash": "a781fb9df1344c5cdb5bce732a099989",
+    "content-hash": "e4a93a491df8ce42eac20122af3bb213",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -59,7 +58,7 @@
                 "social",
                 "twitter"
             ],
-            "time": "2015-08-18 15:56:04"
+            "time": "2015-08-18T15:56:04+00:00"
         },
         {
             "name": "aura/di",
@@ -113,7 +112,7 @@
             "support": {
                 "source": "https://github.com/ushahidi/Aura.Di/tree/develop-2"
             },
-            "time": "2014-11-30 17:41:20"
+            "time": "2014-11-30T17:41:20+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
@@ -193,7 +192,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-06-23 23:17:52"
+            "time": "2016-06-23T23:17:52+00:00"
         },
         {
             "name": "beheh/flaps",
@@ -246,7 +245,7 @@
                 "rate limit",
                 "throttle"
             ],
-            "time": "2015-06-11 09:37:09"
+            "time": "2015-06-11T09:37:09+00:00"
         },
         {
             "name": "bodom78/kohana-imagefly",
@@ -287,7 +286,7 @@
                 "resize",
                 "watermark"
             ],
-            "time": "2014-08-11 02:52:57"
+            "time": "2014-08-11T02:52:57+00:00"
         },
         {
             "name": "composer/installers",
@@ -389,7 +388,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-06-24 07:03:15"
+            "time": "2016-06-24T07:03:15+00:00"
         },
         {
             "name": "ddeboer/data-import",
@@ -461,7 +460,7 @@
                 "export",
                 "import"
             ],
-            "time": "2016-06-23 06:26:02"
+            "time": "2016-06-23T06:26:02+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -530,7 +529,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2016-06-21 12:14:15"
+            "time": "2016-06-21T12:14:15+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -584,7 +583,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2016-03-31 10:24:22"
+            "time": "2016-03-31T10:24:22+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -679,7 +678,8 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-04-29 17:06:53"
+            "abandoned": "guzzlehttp/guzzle",
+            "time": "2015-04-29T17:06:53+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -741,7 +741,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-06-20 07:37:14"
+            "time": "2016-06-20T07:37:14+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -792,7 +792,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-05-18 16:56:05"
+            "time": "2016-05-18T16:56:05+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -850,7 +850,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2016-06-24 23:00:38"
+            "time": "2016-06-24T23:00:38+00:00"
         },
         {
             "name": "henrikbjorn/phpspec-code-coverage",
@@ -893,7 +893,7 @@
                 "MIT"
             ],
             "description": "Integrates CodeCoverage with PhpSpec",
-            "time": "2016-05-05 18:25:12"
+            "time": "2016-05-05T18:25:12+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -935,7 +935,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20 19:18:42"
+            "time": "2014-11-20T19:18:42+00:00"
         },
         {
             "name": "kohana/cache",
@@ -992,7 +992,7 @@
                 "framework",
                 "kohana"
             ],
-            "time": "2016-03-30 09:53:56"
+            "time": "2016-03-30T09:53:56+00:00"
         },
         {
             "name": "kohana/core",
@@ -1050,7 +1050,7 @@
                 "framework",
                 "kohana"
             ],
-            "time": "2014-12-11 02:17:12"
+            "time": "2014-12-11T02:17:12+00:00"
         },
         {
             "name": "kohana/image",
@@ -1110,7 +1110,7 @@
                 "image",
                 "kohana"
             ],
-            "time": "2016-03-23 17:12:48"
+            "time": "2016-03-23T17:12:48+00:00"
         },
         {
             "name": "kohana/minion",
@@ -1167,7 +1167,7 @@
                 "kohana",
                 "task"
             ],
-            "time": "2016-03-23 17:13:14"
+            "time": "2016-03-23T17:13:14+00:00"
         },
         {
             "name": "league/csv",
@@ -1224,7 +1224,7 @@
                 "read",
                 "write"
             ],
-            "time": "2015-11-02 07:36:25"
+            "time": "2015-11-02T07:36:25+00:00"
         },
         {
             "name": "league/event",
@@ -1274,7 +1274,7 @@
                 "event",
                 "listener"
             ],
-            "time": "2016-03-21 09:16:39"
+            "time": "2016-03-21T09:16:39+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1357,7 +1357,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2016-06-09 08:23:13"
+            "time": "2016-06-09T08:23:13+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1404,7 +1404,7 @@
                 }
             ],
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
-            "time": "2015-07-07 20:11:47"
+            "time": "2015-07-07T20:11:47+00:00"
         },
         {
             "name": "league/flysystem-rackspace",
@@ -1451,7 +1451,7 @@
                 }
             ],
             "description": "Flysystem adapter for Rackspace",
-            "time": "2015-04-02 07:47:54"
+            "time": "2015-04-02T07:47:54+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -1513,7 +1513,7 @@
                 "secure",
                 "server"
             ],
-            "time": "2014-09-08 21:01:33"
+            "time": "2014-09-08T21:01:33+00:00"
         },
         {
             "name": "league/url",
@@ -1568,7 +1568,7 @@
                 "url"
             ],
             "abandoned": "league/uri",
-            "time": "2015-09-24 10:19:47"
+            "time": "2015-09-24T10:19:47+00:00"
         },
         {
             "name": "mikemccabe/json-patch-php",
@@ -1595,7 +1595,7 @@
                 "LGPL-3.0"
             ],
             "description": "Produce and apply json-patch objects",
-            "time": "2015-01-05 21:19:54"
+            "time": "2015-01-05T21:19:54+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1650,7 +1650,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-01-05 18:25:05"
+            "time": "2016-01-05T18:25:05+00:00"
         },
         {
             "name": "ohanzee/database",
@@ -1711,7 +1711,7 @@
                 "query builder",
                 "sql"
             ],
-            "time": "2014-08-21 16:41:35"
+            "time": "2014-08-21T16:41:35+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1759,7 +1759,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-04-03 06:00:07"
+            "time": "2016-04-03T06:00:07+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1813,7 +1813,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2015-12-27 11:43:31"
+            "time": "2015-12-27T11:43:31+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1858,7 +1858,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-06-10 09:48:41"
+            "time": "2016-06-10T09:48:41+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1905,7 +1905,7 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2016-06-10 07:14:17"
+            "time": "2016-06-10T07:14:17+00:00"
         },
         {
             "name": "phpspec/php-diff",
@@ -1943,7 +1943,7 @@
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
-            "time": "2016-04-07 12:29:16"
+            "time": "2016-04-07T12:29:16+00:00"
         },
         {
             "name": "phpspec/phpspec",
@@ -2021,7 +2021,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2016-06-07 20:44:43"
+            "time": "2016-06-07T20:44:43+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -2083,7 +2083,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2016-06-07 08:13:47"
+            "time": "2016-06-07T08:13:47+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2145,7 +2145,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-06 15:47:00"
+            "time": "2015-10-06T15:47:00+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2192,7 +2192,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2015-06-21 13:08:43"
+            "time": "2015-06-21T13:08:43+00:00"
         },
         {
             "name": "phpunit/php-text-template",
@@ -2233,7 +2233,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2015-06-21 13:50:34"
+            "time": "2015-06-21T13:50:34+00:00"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -2282,7 +2282,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-09-23 14:46:55"
+            "time": "2015-09-23T14:46:55+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2331,7 +2331,7 @@
                 "request",
                 "response"
             ],
-            "time": "2015-05-04 20:22:00"
+            "time": "2015-05-04T20:22:00+00:00"
         },
         {
             "name": "psr/log",
@@ -2378,7 +2378,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-01-06 21:40:42"
+            "time": "2016-01-06T21:40:42+00:00"
         },
         {
             "name": "rackspace/php-opencloud",
@@ -2440,7 +2440,7 @@
                 "rackspace",
                 "swift"
             ],
-            "time": "2016-06-13 07:37:06"
+            "time": "2016-06-13T07:37:06+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -2520,7 +2520,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2016-06-24 22:24:42"
+            "time": "2016-06-24T22:24:42+00:00"
         },
         {
             "name": "robmorgan/phinx",
@@ -2582,7 +2582,7 @@
                 "migrations",
                 "phinx"
             ],
-            "time": "2015-02-23 16:38:12"
+            "time": "2015-02-23T16:38:12+00:00"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -2645,7 +2645,7 @@
                 "github",
                 "test"
             ],
-            "time": "2016-01-20 17:44:41"
+            "time": "2016-01-20T17:44:41+00:00"
         },
         {
             "name": "sebastian/comparator",
@@ -2709,7 +2709,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-07-26 15:48:44"
+            "time": "2015-07-26T15:48:44+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -2761,7 +2761,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08 07:14:41"
+            "time": "2015-12-08T07:14:41+00:00"
         },
         {
             "name": "sebastian/environment",
@@ -2811,7 +2811,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-06-11 08:21:19"
+            "time": "2016-06-11T08:21:19+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -2878,7 +2878,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2016-06-17 09:04:28"
+            "time": "2016-06-17T09:04:28+00:00"
         },
         {
             "name": "sebastian/recursion-context",
@@ -2931,7 +2931,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2016-01-28 05:39:29"
+            "time": "2016-01-28T05:39:29+00:00"
         },
         {
             "name": "sebastian/version",
@@ -2966,64 +2966,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2015-06-21 13:59:46"
-        },
-        {
-            "name": "shadowhand/email",
-            "version": "v2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shadowhand/email.git",
-                "reference": "e2295fa2ddc23b1b2c206f7716128e51f0557008"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shadowhand/email/zipball/e2295fa2ddc23b1b2c206f7716128e51f0557008",
-                "reference": "e2295fa2ddc23b1b2c206f7716128e51f0557008",
-                "shasum": ""
-            },
-            "require": {
-                "kohana/core": "3.3.*",
-                "php": ">=5.3.0",
-                "swiftmailer/swiftmailer": "~4.3.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Shadowhand\\": "src/"
-                },
-                "files": [
-                    "init.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Woody Gilk",
-                    "email": "woody.gilk@gmail.com",
-                    "role": "developer"
-                },
-                {
-                    "name": "Kohana Team",
-                    "email": "team@kohanaframework.org",
-                    "role": "creator"
-                }
-            ],
-            "description": "Email helper class, uses Swiftmailer",
-            "homepage": "http://github.com/shadowhand/email",
-            "keywords": [
-                "email",
-                "helper",
-                "kohana",
-                "library",
-                "module",
-                "ohanzee",
-                "swiftmailer"
-            ],
-            "time": "2014-09-15 15:00:21"
+            "time": "2015-06-21T13:59:46+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3074,7 +3017,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-04-11 10:22:09"
+            "time": "2013-04-11T10:22:09+00:00"
         },
         {
             "name": "symfony/config",
@@ -3125,7 +3068,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-08 05:59:48"
+            "time": "2015-07-08T05:59:48+00:00"
         },
         {
             "name": "symfony/console",
@@ -3183,7 +3126,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-26 09:08:40"
+            "time": "2015-07-26T09:08:40+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3243,7 +3186,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 11:11:27"
+            "time": "2016-06-06T11:11:27+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -3292,7 +3235,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-04-12 18:01:21"
+            "time": "2016-04-12T18:01:21+00:00"
         },
         {
             "name": "symfony/finder",
@@ -3341,7 +3284,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-21 05:36:02"
+            "time": "2016-06-21T05:36:02+00:00"
         },
         {
             "name": "symfony/process",
@@ -3390,7 +3333,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-21 05:36:02"
+            "time": "2016-06-21T05:36:02+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -3450,7 +3393,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2016-06-16 05:02:45"
+            "time": "2016-06-16T05:02:45+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -3499,7 +3442,7 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 11:53:30"
+            "time": "2016-06-06T11:53:30+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -3549,7 +3492,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-26 08:59:42"
+            "time": "2015-07-26T08:59:42+00:00"
         },
         {
             "name": "symm/gisconverter",
@@ -3587,7 +3530,7 @@
                 "BSD"
             ],
             "description": "A php library to convert vector geometries between different formats",
-            "time": "2014-08-07 14:02:42"
+            "time": "2014-08-07T14:02:42+00:00"
         },
         {
             "name": "true/punycode",
@@ -3633,7 +3576,7 @@
                 "idna",
                 "punycode"
             ],
-            "time": "2016-05-23 08:20:50"
+            "time": "2016-05-23T08:20:50+00:00"
         },
         {
             "name": "twilio/sdk",
@@ -3683,7 +3626,64 @@
                 "sms",
                 "twilio"
             ],
-            "time": "2014-12-04 19:17:59"
+            "time": "2014-12-04T19:17:59+00:00"
+        },
+        {
+            "name": "ushahidi/shadowhand-email",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ushahidi/shadowhand-email.git",
+                "reference": "51274cdd899d0c619368c9580146bd05b461a03f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ushahidi/shadowhand-email/zipball/51274cdd899d0c619368c9580146bd05b461a03f",
+                "reference": "51274cdd899d0c619368c9580146bd05b461a03f",
+                "shasum": ""
+            },
+            "require": {
+                "kohana/core": "3.3.*",
+                "php": ">=5.3.0",
+                "swiftmailer/swiftmailer": "~4.3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Shadowhand\\": "src/"
+                },
+                "files": [
+                    "init.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kohana Team",
+                    "email": "team@kohanaframework.org",
+                    "role": "creator"
+                },
+                {
+                    "name": "Robbie Mackay",
+                    "email": "robbie@ushahidi.com",
+                    "role": "maintainer"
+                }
+            ],
+            "description": "Email helper class, uses Swiftmailer",
+            "homepage": "http://github.com/ushahidi/shadowhand-email",
+            "keywords": [
+                "email",
+                "helper",
+                "kohana",
+                "library",
+                "module",
+                "ohanzee",
+                "swiftmailer"
+            ],
+            "time": "2017-03-22T00:35:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3734,7 +3734,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2015-02-19 20:37:05"
+            "time": "2015-02-19T20:37:05+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3784,7 +3784,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-03-04 13:27:44"
+            "time": "2016-03-04T13:27:44+00:00"
         },
         {
             "name": "zeelot/kohana-media",
@@ -3838,7 +3838,7 @@
                 "kohana",
                 "media"
             ],
-            "time": "2014-04-26 16:15:53"
+            "time": "2014-04-26T16:15:53+00:00"
         }
     ],
     "packages-dev": [
@@ -3902,7 +3902,7 @@
                 "Behat",
                 "Symfony2"
             ],
-            "time": "2015-12-30 11:55:42"
+            "time": "2015-12-30T11:55:42+00:00"
         },
         {
             "name": "behat/gherkin",
@@ -3963,7 +3963,7 @@
                 "Symfony2",
                 "parser"
             ],
-            "time": "2014-06-06 00:48:18"
+            "time": "2014-06-06T00:48:18+00:00"
         },
         {
             "name": "behat/mink",
@@ -4021,7 +4021,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2016-03-21 10:12:43"
+            "time": "2016-03-21T10:12:43+00:00"
         },
         {
             "name": "behat/mink-browserkit-driver",
@@ -4077,7 +4077,7 @@
                 "browser",
                 "testing"
             ],
-            "time": "2016-04-11 09:16:06"
+            "time": "2016-04-11T09:16:06+00:00"
         },
         {
             "name": "behat/mink-extension",
@@ -4127,7 +4127,7 @@
                 "test",
                 "web"
             ],
-            "time": "2015-03-02 10:45:50"
+            "time": "2015-03-02T10:45:50+00:00"
         },
         {
             "name": "behat/mink-goutte-driver",
@@ -4182,7 +4182,7 @@
                 "headless",
                 "testing"
             ],
-            "time": "2016-03-05 09:04:22"
+            "time": "2016-03-05T09:04:22+00:00"
         },
         {
             "name": "fabpot/goutte",
@@ -4238,7 +4238,7 @@
             "keywords": [
                 "scraper"
             ],
-            "time": "2014-10-09 15:52:51"
+            "time": "2014-10-09T15:52:51+00:00"
         },
         {
             "name": "heroku/heroku-buildpack-php",
@@ -4282,7 +4282,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2016-06-17 22:36:40"
+            "time": "2016-06-17T22:36:40+00:00"
         },
         {
             "name": "kohana/unittest",
@@ -4338,7 +4338,7 @@
                 "framework",
                 "kohana"
             ],
-            "time": "2016-03-23 17:13:51"
+            "time": "2016-03-23T17:13:51+00:00"
         },
         {
             "name": "phpunit/dbunit",
@@ -4397,7 +4397,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-07 17:26:36"
+            "time": "2015-08-07T17:26:36+00:00"
         },
         {
             "name": "phpunit/php-timer",
@@ -4441,7 +4441,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2016-05-12 18:03:57"
+            "time": "2016-05-12T18:03:57+00:00"
         },
         {
             "name": "phpunit/phpunit",
@@ -4513,7 +4513,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-06-17 15:17:43"
+            "time": "2016-06-17T15:17:43+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4569,7 +4569,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-10-02 06:51:40"
+            "time": "2015-10-02T06:51:40+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -4620,7 +4620,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2015-10-12 03:26:01"
+            "time": "2015-10-12T03:26:01+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4695,7 +4695,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-12-04 22:32:15"
+            "time": "2014-12-04T22:32:15+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -4752,7 +4752,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 15:06:25"
+            "time": "2016-06-06T15:06:25+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -4805,7 +4805,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 11:11:27"
+            "time": "2016-06-06T11:11:27+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -4868,7 +4868,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-21 05:43:49"
+            "time": "2016-06-21T05:43:49+00:00"
         },
         {
             "name": "symfony/dom-crawler",
@@ -4924,7 +4924,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2016-04-12 18:01:21"
+            "time": "2016-04-12T18:01:21+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4983,7 +4983,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-06-07 08:38:42"
+            "time": "2016-06-07T08:38:42+00:00"
         },
         {
             "name": "symfony/translation",
@@ -5042,7 +5042,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-08 05:59:48"
+            "time": "2015-07-08T05:59:48+00:00"
         }
     ],
     "aliases": [],
@@ -5054,6 +5054,7 @@
         "kohana/cache": 20,
         "kohana/image": 20,
         "kohana/minion": 20,
+        "ushahidi/shadowhand-email": 20,
         "vlucas/phpdotenv": 20,
         "zeelot/kohana-media": 20,
         "league/csv": 20,
