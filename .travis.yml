@@ -38,7 +38,7 @@ before_script:
 - if [ "${coverage}" != "" ]; then php -S localhost:8000 -t httpdocs httpdocs/coverage.php & fi
 - mysql -e 'SET @@GLOBAL.wait_timeout=1800'
 script:
-- if [ "${coverage}" == "" ]; then composer test; fi
+- if [ "${coverage}" == "" ]; then composer run test --timeout=0; fi
 - if [ "${coverage}" != "" ]; then composer run coverage --timeout=0; fi
 - composer lint
 after_success:
