@@ -51,7 +51,7 @@ class SetAuthorizer implements Authorizer
 		}
 
 		// If no roles are selected, the Set is considered completely public.
-		return true;
+		return $entity->getId() === null;
 	}
 
 	/* Authorizer */
@@ -95,13 +95,29 @@ class SetAuthorizer implements Authorizer
 		if ($user->getId() and $privilege === 'create') {
 			return true;
 		}
-
-		// Finally, all users can search sets
-		if ($privilege === 'search') {
+		if ($entity->getId() && $privilege === 'search'){
+			return $this->isSearchableByUser($entity, $user);
+		} else if ($privilege === 'search') {
+			// Finally, all users can search sets
 			return true;
 		}
 
 		// If no other access checks succeed, we default to denying access
+		return false;
+	}
+
+	protected function isSearchableByUser(Set $entity, $user)
+	{
+
+		if ($entity->user_id === $user->getId()) {
+			return true;
+		}
+
+		if ($entity->role) {
+			return in_array($user->role, $entity->role);
+		}
+
+		// If no roles are selected, the Set is considered private.
 		return false;
 	}
 }
