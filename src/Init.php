@@ -223,7 +223,6 @@ $di->params['Ushahidi\Factory\UsecaseFactory']['actions'] = [
 	'search' => $di->newFactory('Ushahidi\Core\Usecase\SearchUsecase'),
 	'options'=> $di->newFactory('Ushahidi\Core\Usecase\OptionsUsecase'),
 ];
-
 // It is also possible to overload usecases by setting a specific resource and action.
 // The same collaborator mapping will be applied by action as with default use cases.
 $di->params['Ushahidi\Factory\UsecaseFactory']['map'] = [];
@@ -284,6 +283,10 @@ $di->setter['Ushahidi\Core\Usecase\Message\ReceiveMessage']['setPostRepository']
 $di->setter['Ushahidi\Core\Usecase\Message\ReceiveMessage']['setContactValidator']
 	= $di->lazyGet('validator.contact.receive');
 
+// Add custom usecases for sets
+$di->params['Ushahidi\Factory\UsecaseFactory']['map']['savedsearches'] = [
+	'search'    => $di->lazyNew('Ushahidi\Core\Usecase\Set\SearchSet'),
+];
 // Add custom usecases for posts
 $di->params['Ushahidi\Factory\UsecaseFactory']['map']['posts'] = [
 	'create'  => $di->lazyNew('Ushahidi\Core\Usecase\Post\CreatePost'),

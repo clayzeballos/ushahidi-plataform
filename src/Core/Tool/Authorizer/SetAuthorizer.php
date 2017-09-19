@@ -92,8 +92,11 @@ class SetAuthorizer implements Authorizer
 		}
 		if ($entity->getId() && $privilege === 'search'){
 			return $this->isSearchableByUser($entity, $user);
-		} else if ($privilege === 'search') {
-			// Finally, all users can search sets
+		}
+
+		// Finally, all users can read sets
+		if ($privilege === 'read') {
+
 			return true;
 		}
 
