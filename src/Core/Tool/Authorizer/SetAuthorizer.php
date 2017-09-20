@@ -65,9 +65,9 @@ class SetAuthorizer implements Authorizer
 			return false;
 		}
 
-		// Then we check if a user has the 'admin' role or if they are the owner of the entity. If they do they're
+		// Then we check if a user has the 'admin' role. If they are, they're
 		// allowed access to everything (all entities and all privileges)
-		if ($this->isUserAdmin($user) || $this->isUserOwner($entity, $user)) {
+		if ($this->isUserAdmin($user)) {
 			return true;
 		}
 
