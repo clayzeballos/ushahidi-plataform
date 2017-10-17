@@ -89,6 +89,15 @@ $di->setter['Ushahidi\Console\Command\Import']['setImportUsecase'] = $di->lazy(f
 
 // User command
 $di->setter['Ushahidi\Console\Application']['injectCommands'][] = $di->lazyNew('Ushahidi\Console\Command\User');
+$di->setter['Ushahidi\Console\Application']['injectCommands'][] = $di->lazyNew('Ushahidi\Console\Command\CSV');
+$di->setter['Ushahidi\Console\Command\CSV']['setRepo'] = $di->lazyGet('repository.csv');
+$di->setter['Ushahidi\Console\Command\CSV']['setExportUsecase'] = $di->lazy(function () use ($di) {
+	return service('factory.usecase')
+		->get('posts_export', 'export')
+		->setAuthorizer($di->get('authorizer.console'));
+});
+// User command
+$di->setter['Ushahidi\Console\Application']['injectCommands'][] = $di->lazyNew('Ushahidi\Console\Command\User');
 $di->setter['Ushahidi\Console\Command\User']['setRepo'] = $di->lazyGet('repository.user');
 $di->setter['Ushahidi\Console\Command\User']['setValidator'] = $di->lazyNew('Ushahidi_Validator_User_Create');
 

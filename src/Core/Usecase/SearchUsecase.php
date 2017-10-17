@@ -139,6 +139,7 @@ class SearchUsecase implements Usecase
 	{
 		// Get possible search fields from the repo
 		$fields = $this->repo->getSearchFields();
+
 		// Get possible fields for paging
 		$paging = $this->getPagingFields();
 

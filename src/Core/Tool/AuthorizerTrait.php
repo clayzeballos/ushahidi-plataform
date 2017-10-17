@@ -44,8 +44,8 @@ trait AuthorizerTrait
 	 * @return void
 	 * @throws AuthorizerException
 	 */
-	protected function verifyAuth(Entity $entity, $privilege)
-	{
+	protected function verifyAuth(Entity $entity, $privilege){
+
 		if (!$this->auth->isAllowed($entity, $privilege)) {
 			throw new AuthorizerException(sprintf(
 				'User %d is not allowed to %s resource %s #%d',
@@ -55,6 +55,7 @@ trait AuthorizerTrait
 				$entity->getId()
 			));
 		}
+
 	}
 
 	/**

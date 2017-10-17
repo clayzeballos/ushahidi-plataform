@@ -38,14 +38,12 @@ class Export extends SearchUsecase
 	{
 		// Fetch an empty entity...
 		$entity = $this->getEntity();
-
 		// ... verify that the entity can be searched by the current user
 		$this->verifySearchAuth($entity);
-
 		// ... and get the search filters for this entity
 		$search = $this->getSearch();
-
 		// ... pass the search information to the repo
+
 		$this->repo->setSearchParams($search);
 
 		// ... get the results of the search
