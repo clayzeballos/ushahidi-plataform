@@ -19,6 +19,10 @@ roles:
     name: "noedit"
     display_name: "User cant edit posts"
     protected: 0
+  -
+    name: "org_admin"
+    display_name: "Organization Admin"
+    protected: 1
 users:
   -
     id: 1
@@ -68,6 +72,12 @@ users:
     realname: CannotEditor
     email: "cannoteditor@ushahidi.com"
     role: "noedit"
+  -
+    id: 9
+    password: "$2y$15$iWANGZn.DomLWU.YtjUcX.HEq1hoMGauzXFRubKgar/BRaAj9zQ9q"
+    realname: OrgAdminUser
+    email: "orgadminuser@ushahidi.com"
+    role: "org_admin"
 forms:
   -
     id: 1

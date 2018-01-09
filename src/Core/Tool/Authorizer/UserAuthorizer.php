@@ -15,6 +15,7 @@ use Ushahidi\Core\Entity;
 use Ushahidi\Core\Entity\User;
 use Ushahidi\Core\Entity\Permission;
 use Ushahidi\Core\Tool\Authorizer;
+use Ushahidi\Core\Traits\OrgAdminAccess;
 use Ushahidi\Core\Traits\AdminAccess;
 use Ushahidi\Core\Traits\UserContext;
 use Ushahidi\Core\Traits\PrivAccess;
@@ -26,6 +27,9 @@ class UserAuthorizer implements Authorizer
 {
 	// The access checks are run under the context of a specific user
 	use UserContext;
+
+	// - `OrgAdminAccess` to check if the user has org_admin access
+	use OrgAdminAccess;
 
 	// - `AdminAccess` to check if the user has admin access
 	use AdminAccess;
@@ -57,6 +61,23 @@ class UserAuthorizer implements Authorizer
 
 		// Only logged in users have access if the deployment is private
 		if (!$this->canAccessDeployment($user)) {
+			return false;
+		}
+
+		// Nobody should be able to delete users with the org_admin role.
+		if ($this->isUserOrgAdmin($entity) && $privilege === 'delete') {
+			return false;
+		}
+
+		// Nobody should be able to update email, role and password of users with the org_admin role.
+		if ($this->isUserOrgAdmin($entity) && $privilege === 'update' && $this->isUpdatingOrgAdminLoginData($entity)) {
+			return false;
+		}
+
+		// Other users should not be able to update or delete users with the org_admin role.
+		if ($this->isUserOrgAdmin($entity) &&
+			$this->isUserSelf($entity) &&
+			in_array($privilege, ['delete'])) {
 			return false;
 		}
 
