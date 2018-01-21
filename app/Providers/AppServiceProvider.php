@@ -13,6 +13,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->configure('cdn');
+        $this->app->configure('media');
+        $this->app->configure('ratelimiter');
+        $this->app->configure('multisite');
+        $this->app->configure('ohanzee-db');
+
+        $this->registerServicesFromAura();
+
+        $this->registerFilesystem();
+        $this->registerMailer();
+        $this->registerDataSources();
+
+        $this->configureAuraDI();
+
+        // Hack, must construct it to register route :/
+        $this->app->make('datasources');
+    }
+
+    public function registerServicesFromAura()
+    {
         $this->app->singleton(\Ushahidi\Factory\UsecaseFactory::class, function ($app) {
             // Just return it from AuraDI
             return service('factory.usecase');
@@ -22,22 +42,10 @@ class AppServiceProvider extends ServiceProvider
             // Just return it from AuraDI
             return service('repository.message');
         });
+    }
 
-        $this->app->configure('cdn');
-        $this->app->configure('media');
-        $this->app->configure('ratelimiter');
-        $this->app->configure('multisite');
-        $this->app->configure('ohanzee-db');
-
-        // Add filesystem
-        $this->app->singleton('filesystem', function ($app) {
-            return $app->loadComponent(
-                'filesystems',
-                \Illuminate\Filesystem\FilesystemServiceProvider::class,
-                'filesystem'
-            );
-        });
-
+    public function registerMailer()
+    {
         // Add mailer
         $this->app->singleton('mailer', function ($app) {
             return $app->loadComponent(
@@ -46,8 +54,22 @@ class AppServiceProvider extends ServiceProvider
                 'mailer'
             );
         });
+    }
 
+    public function registerFilesystem()
+    {
+        // Add filesystem
+        $this->app->singleton('filesystem', function ($app) {
+            return $app->loadComponent(
+                'filesystems',
+                \Illuminate\Filesystem\FilesystemServiceProvider::class,
+                'filesystem'
+            );
+        });
+    }
 
+    public function registerDataSources()
+    {
         $this->app->singleton('datasources', function () {
             return $this->app->loadComponent(
                 'datasources',
@@ -55,123 +77,18 @@ class AppServiceProvider extends ServiceProvider
                 'datasources'
             );
         });
-
-        $this->configureAuraDI();
-
-        // Hack, must construct it to register route :/
-        $this->app->make('datasources');
     }
 
-    // @todo move most of this elsewhere
     protected function configureAuraDI()
     {
         $di = service();
 
-        // Multisite db
-        $di->set('site', function () use ($di) {
-            $site = '';
+        $this->configureAuraServices($di);
+        $this->injectAuraConfig($di);
+    }
 
-            // Is this a multisite install?
-            $multisite = config('multisite.enabled');
-            if ($multisite) {
-                $site = $di->get('multisite')->getSite();
-            }
-
-            return $site;
-        });
-
-        // Site config
-        $di->set('site.config', function () use ($di) {
-            return $di->get('repository.config')->get('site')->asArray();
-        });
-
-        // Client Url
-        $di->set('clienturl', function () use ($di) {
-            return $this->getClientUrl($di->get('site.config'));
-        });
-
-        // Feature config
-        $di->set('features', function () use ($di) {
-            return $di->get('repository.config')->get('features')->asArray();
-        });
-
-        // Roles config settings
-        $di->set('roles.enabled', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['roles']['enabled'];
-        });
-
-        // Feature config
-        $di->set('features.limits', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['limits'];
-        });
-
-        // Webhooks config settings
-        $di->set('webhooks.enabled', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['webhooks']['enabled'];
-        });
-
-        // Post Locking config settings
-        $di->set('post-locking.enabled', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['post-locking']['enabled'];
-        });
-
-        // Redis config settings
-        $di->set('redis.enabled', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['redis']['enabled'];
-        });
-
-        // Data import config settings
-        $di->set('data-import.enabled', function () use ($di) {
-            $config = $di->get('features');
-
-            return $config['data-import']['enabled'];
-        });
-
-        $di->set('features.data-providers', function () use ($di) {
-            $config = $di->get('features');
-
-            return array_filter($config['data-providers']);
-        });
-
-        // CDN Config settings
-        $di->set('cdn.config', function () use ($di) {
-            return config('cdn');
-        });
-
-        // Ratelimiter config settings
-        $di->set('ratelimiter.config', function () use ($di) {
-            return config('ratelimiter');
-        });
-
-        // Private deployment config settings
-        // @todo move to repo
-        $di->set('site.private', function () use ($di) {
-            $site = $di->get('site.config');
-            $features = $di->get('features');
-            return $site['private']
-                and $features['private']['enabled'];
-        });
-
-        $di->set('tool.uploader.prefix', function () use ($di) {
-            // Is this a multisite install?
-            $multisite = config('multisite.enabled');
-            if ($multisite) {
-                return $di->get('multisite')->getCdnPrefix();
-            }
-
-            return '';
-        });
-
+    protected function configureAuraServices(\Aura\Di\ContainerInterface $di)
+    {
         // Configure mailer
         $di->set('tool.mailer', $di->lazyNew('Ushahidi\App\Tools\LumenMailer', [
             'mailer' => app('mailer'),
@@ -184,36 +101,76 @@ class AppServiceProvider extends ServiceProvider
             'userRepo' => $di->lazyGet('repository.user')
         ]));
 
-        // Kohana injection
-        // DB config
-        $di->set('db.config', function () use ($di) {
-            $config = config('ohanzee-db');
-            $config = $config['default'];
-
-            // Is this a multisite install?
-            $multisite = config('multisite.enabled');
-            if ($multisite) {
-                $config = $di->get('multisite')->getDbConfig();
-            }
-
-            return $config;
-        });
         // Multisite db
         $di->set('kohana.db.multisite', function () use ($di) {
             $config = config('ohanzee-db');
 
             return \Ohanzee\Database::instance('multisite', $config['default']);
         });
+
         // Deployment db
         $di->set('kohana.db', function () use ($di) {
-            return \Ohanzee\Database::instance('deployment', $di->get('db.config'));
+            return \Ohanzee\Database::instance('deployment', $this->getDbConfig($di));
+        });
+    }
+
+    protected function injectAuraConfig(\Aura\Di\ContainerInterface $di)
+    {
+        // CDN Config settings
+        $di->set('cdn.config', function () use ($di) {
+            return config('cdn');
         });
 
-        // Intercom config settings
-        $di->set('site.intercomAppToken', function () use ($di) {
-            // FIXME
-            return false;
+        // Ratelimiter config settings
+        $di->set('ratelimiter.config', function () use ($di) {
+            return config('ratelimiter');
         });
+
+        // Multisite db
+        // Move multisite enabled check to class and move to src/App
+        $di->set('site', function () use ($di) {
+            $site = '';
+
+            // Is this a multisite install?
+            $multisite = config('multisite.enabled');
+            if ($multisite) {
+                $site = $di->get('multisite')->getSite();
+            }
+
+            return $site;
+        });
+
+        // Move multisite enabled check to class and move to src/App
+        $di->set('tool.uploader.prefix', function () use ($di) {
+            // Is this a multisite install?
+            $multisite = config('multisite.enabled');
+            if ($multisite) {
+                return $di->get('multisite')->getCdnPrefix();
+            }
+
+            return '';
+        });
+
+        // Client Url
+        $di->set('clienturl', function () use ($di) {
+            return $this->getClientUrl($di->get('site.config'));
+        });
+    }
+
+    protected function getDbConfig(\Aura\Di\ContainerInterface $di)
+    {
+        // Kohana injection
+        // DB config
+        $config = config('ohanzee-db');
+        $config = $config['default'];
+
+        // Is this a multisite install?
+        $multisite = config('multisite.enabled');
+        if ($multisite) {
+            $config = $di->get('multisite')->getDbConfig();
+        }
+
+        return $config;
     }
 
     protected function getClientUrl($config)
