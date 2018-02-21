@@ -241,8 +241,8 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 					 * If the attribute has a count key, it means we want to show that as key.index in the header.
 					 * This is to make sure we don't miss values in multi-value fields
 					 */
-
-					if ($attribute['count'] > 1 && !in_array($attribute['type'], ['tags'])){
+					$singleColumnArray = (isset(self::$csv_schema[$attribute['type']]) && self::$csv_schema[$attribute['type']] === 'single_array');
+					if ($attribute['count'] > 1 & !$singleColumnArray){
 						for ($i = 0 ; $i < $attribute['count']; $i++){
 							$attributeKeysWithStageFlat[$attributeKey.'.'.$i] = $attribute['label'].'.'.$i;
 						}
