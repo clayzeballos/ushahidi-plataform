@@ -17,7 +17,7 @@ use League\Flysystem\Util\MimeType;
 
 class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 {
-	public static $csv_schema = array('tags' => 'single_array', 'sets' => 'multiple_array');
+	public static $csv_schema = array('tags' => 'single_array', 'sets' => 'multiple_array', 'point'=> 'single_value_array');
 	/**
 	 * @var SearchData
 	 */
@@ -157,11 +157,11 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			$recordValue[$headingKey][$key] = $date->format('Y-m-d');
 		}
 
- 		if($key === 'lat' || $key === 'lon'){
+ 		if($format === 'single_value_array'){
 			/*
 			 * Lat/Lon are never multivalue fields so we can get the first index  only
 			 */
-			$return = isset($recordValue[$headingKey][0][$key])? ($recordValue[$headingKey][0][$key]): '';
+			$return = $this->singleValueArray($recordValue, $headingKey, $key);
 		} else if ($format === 'single_array') {
 			/**
 			 * we need to join the array items in a single comma separated string
@@ -173,20 +173,31 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			 * value might not exist in all of the posts we are posting in the CSV
 			 */
 			$return = isset($recordValue[$headingKey][$key])? ($recordValue[$headingKey][$key]): '';
-		} else if ($key !== null) {
-			$return = isset($recordValue[$headingKey])? ($recordValue[$headingKey]): '';
-		} else{
-			$emptyRecord = !isset($record[$headingKey]) || (is_array($record[$headingKey]) && empty($record[$headingKey]));
-			$return = $emptyRecord ? '' : $record[$headingKey];
+		} else if ($format === 'single_raw') {
+			$return = $this->singleRaw($recordValue, $record, $headingKey, $key);
 		}
 		return $return;
 	}
-
+	private function singleRaw($recordValue, $record, $headingKey, $key){
+	 	if ($key !== null) {
+			return isset($recordValue[$headingKey])? ($recordValue[$headingKey]): '';
+		} else {
+			$emptyRecord = !isset($record[$headingKey]) || (is_array($record[$headingKey]) && empty($record[$headingKey]));
+			return $emptyRecord ? '' : $record[$headingKey];
+		}
+	}
 	private function singleColumnArray($recordValue, $headingKey, $separator = ',') {
 		/**
 	 	* we need to join the array items in a single comma separated string
 	 	*/
 		return isset($recordValue[$headingKey])? (implode(',', $recordValue[$headingKey])): '';
+	}
+	private function singleValueArray($recordValue, $headingKey, $key) {
+		/**
+		 * we need to join the array items in a single comma separated string
+		 */
+		return isset($recordValue[$headingKey][0][$key])? ($recordValue[$headingKey][0][$key]): '';
+
 	}
 
 	/**
@@ -231,10 +242,6 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			 * Finally, we can flatten the array, and set the fields (key->labels) with the user-selected order.
 			 */
 			foreach ($attributeKeys as $attributeKey => $attribute){
-				$format = 'single_raw';
-				if (is_array($attribute) && isset($attribute['type']) && isset(self::$csv_schema[$attribute['type']])){
-					$format = self::$csv_schema[$attribute['type']];
-				}
 				if (is_array($attribute) && isset($attribute['count']) && $attribute['type'] !== 'point'){
 					/**
 					 * If the attribute has a count key, it means we want to show that as key.index in the header.
