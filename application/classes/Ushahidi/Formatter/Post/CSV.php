@@ -17,6 +17,7 @@ use League\Flysystem\Util\MimeType;
 
 class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 {
+	public static $csv_schema = array('tags' => 'single_array', 'sets' => 'multiple_array');
 	/**
 	 * @var SearchData
 	 */
@@ -129,6 +130,8 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 	private function getValueFromRecord($record, $keyParam){
 		$return = '';
 		$keySet = explode('.', $keyParam); //contains key + index of the key
+		$headingKey = isset($keySet[0]) ? $keySet[0] : null;
+
 		if (count($keySet) == 1) {
 			preg_match('/(.*?)\(([0-9]+)\)/',$keyParam, $match);
 			if ($match) {
@@ -136,11 +139,16 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 				$keySet[1] = $match[0];
 				$keySet[2] = $match[2];
 			}
+			$headingKey = $keySet[0];
+
 		}
 
-		$headingKey = $keySet[0];
 		$key = isset($keySet[1]) ? $keySet[1] : null;
 		$recordAttributes = isset($record['attributes'][$headingKey]) ? $record['attributes'][$headingKey] : null;
+		$format = 'single_raw';
+		if (is_array($recordAttributes) && isset($recordAttributes['type']) && isset(self::$csv_schema[$recordAttributes['type']])){
+			$format = self::$csv_schema[$recordAttributes['type']];
+		}
 		$recordValue = isset ($record['attributes']) && $recordAttributes? $record['values']: $record;
 		$isDateField = $recordAttributes['input'] === 'date' && $recordAttributes['type'] === 'datetime';
 
@@ -154,11 +162,11 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			 * Lat/Lon are never multivalue fields so we can get the first index  only
 			 */
 			$return = isset($recordValue[$headingKey][0][$key])? ($recordValue[$headingKey][0][$key]): '';
-		} else if (count($keySet) == 3 && $key !== null && isset($recordValue[$headingKey]) && is_array($recordValue[$headingKey])) {
+		} else if ($format === 'single_array') {
 			/**
 			 * we need to join the array items in a single comma separated string
 			 */
-			$return = isset($recordValue[$headingKey])? (implode(',', $recordValue[$headingKey])): '';
+			$return = $this->singleColumnArray($recordValue, $headingKey);
 		} else if ($key !== null && isset($recordValue[$headingKey]) && is_array($recordValue[$headingKey])) {
 			/**
 			 * we work with multiple posts which means our actual count($record[$key])
@@ -172,6 +180,13 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			$return = $emptyRecord ? '' : $record[$headingKey];
 		}
 		return $return;
+	}
+
+	private function singleColumnArray($recordValue, $headingKey, $separator = ',') {
+		/**
+	 	* we need to join the array items in a single comma separated string
+	 	*/
+		return isset($recordValue[$headingKey])? (implode(',', $recordValue[$headingKey])): '';
 	}
 
 	/**
@@ -216,6 +231,10 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 			 * Finally, we can flatten the array, and set the fields (key->labels) with the user-selected order.
 			 */
 			foreach ($attributeKeys as $attributeKey => $attribute){
+				$format = 'single_raw';
+				if (is_array($attribute) && isset($attribute['type']) && isset(self::$csv_schema[$attribute['type']])){
+					$format = self::$csv_schema[$attribute['type']];
+				}
 				if (is_array($attribute) && isset($attribute['count']) && $attribute['type'] !== 'point'){
 					/**
 					 * If the attribute has a count key, it means we want to show that as key.index in the header.
@@ -273,7 +292,7 @@ class Ushahidi_Formatter_Post_CSV extends Ushahidi_Formatter_API
 		$prevColumnValue = isset($columns[$key]) ? $columns[$key]: ['count' => 0];
 		$headingCount = $prevColumnValue['count'] < count($value)?  count($value) : $prevColumnValue['count'] ;
 		if (!is_array($labelObject)){
-			$labelObject = ['label' => $labelObject, 'count' => $headingCount, 'type' => null, 'nativeField' => $nativeField, 'priority' => -1, 'form_id' => -1, 'stage' => -1];
+			$labelObject = ['label' => $labelObject, 'count' => $headingCount, 'type' => $key, 'nativeField' => $nativeField, 'priority' => -1, 'form_id' => -1, 'stage' => -1];
 		}
 		$labelObject['count'] = $headingCount;
 		$columns[$key] = $labelObject;
