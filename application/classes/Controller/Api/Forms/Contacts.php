@@ -32,4 +32,15 @@ class Controller_API_Forms_Contacts extends Ushahidi_Rest {
 		//$this->_usecase
 		//	->setFormatter(service("formatter.entity.form.contact"));
 	}
+
+	public function action_put_index_collection()
+	{
+
+		$this->_usecase = service('factory.usecase')
+			->get($this->_resource(), 'update');
+		$this->_usecase->setIdentifiers($this->request->param());
+		$this->_usecase->setPayload($this->_request_payload);
+		//$this->_usecase
+		//	->setFormatter(service("formatter.entity.form.contact"));
+	}
 }

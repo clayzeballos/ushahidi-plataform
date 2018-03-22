@@ -59,11 +59,24 @@ trait VerifyFormLoaded
 	 * @param  Data $input
 	 * @return void
 	 */
-	protected function verifyFormDoesNoExistInContactPostState()
+	protected function verifyFormDoesNotExistInContactPostState()
 	{
 		// Ensure that the form exists.
 		if ($this->form_contact_repo->formExistsInPostStateRepo($this->getRequiredIdentifier('form_id'))) {
 			throw new \HTTP_Exception_400('The form already has a set of contacts');
+		}
+	}
+
+	/**
+	 * Checks that the form exists.
+	 * @param  Data $input
+	 * @return void
+	 */
+	protected function verifyFormExistsInContactPostState()
+	{
+		// Ensure that the form exists.
+		if (!$this->form_contact_repo->formExistsInPostStateRepo($this->getRequiredIdentifier('form_id'))) {
+			throw new \HTTP_Exception_400('The form does not have contacts to update');
 		}
 	}
 

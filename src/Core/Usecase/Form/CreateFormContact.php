@@ -15,8 +15,9 @@ use Ushahidi\Core\Exception\ValidatorException;
 use Ushahidi\Core\Usecase\Contact\CreateContact;
 use Ushahidi\Core\Usecase\Concerns\IdentifyRecords;
 use Ushahidi\Core\Usecase\Concerns\VerifyEntityLoaded;
+use Ushahidi\Core\Usecase\CreateUsecase;
 
-class CreateFormContact extends CreateContact
+class CreateFormContact extends CreateUsecase
 {
 	use VerifyFormLoaded;
 
@@ -38,11 +39,10 @@ class CreateFormContact extends CreateContact
 	// Usecase
 	public function interact()
 	{
-
 		// First verify that the form even exists
 		$this->verifyFormExists();
 		$this->verifyTargetedSurvey();
-		$this->verifyFormDoesNoExistInContactPostState();
+		$this->verifyFormDoesNotExistInContactPostState();
 		// Fetch a default entity and ...
 		$entity = $this->getEntity();
 

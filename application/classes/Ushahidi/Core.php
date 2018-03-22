@@ -541,6 +541,19 @@ abstract class Ushahidi_Core {
 		$di->setter['Ushahidi_Validator_Form_Contact_Create']['setFormContactRepo'] =
 			$di->lazyGet('repository.form_contact');
 
+
+		$di->setter['Ushahidi_Validator_Form_Contact_Update']['setFormRepo'] =
+			$di->lazyGet('repository.form');
+
+		$di->setter['Ushahidi_Validator_Form_Contact_Update']['setPhoneValidator'] =
+			\libphonenumber\PhoneNumberUtil::getInstance();
+
+		$di->setter['Ushahidi_Validator_Form_Contact_Update']['setContactRepo'] =
+			$di->lazyGet('repository.contact');
+		$di->setter['Ushahidi_Validator_Form_Contact_Update']['setFormContactRepo'] =
+			$di->lazyGet('repository.form_contact');
+
+
 		// Form Attribute repository parameters
 		$di->params['Ushahidi_Repository_Form_Attribute'] = [
 				'form_stage_repo' => $di->lazyGet('repository.form_stage'),

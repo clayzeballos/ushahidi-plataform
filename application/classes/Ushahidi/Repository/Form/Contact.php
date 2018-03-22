@@ -82,6 +82,49 @@ class Ushahidi_Repository_Form_Contact extends Ushahidi_Repository implements
 		foreach($entities as $entity) {
 			//@fixme how to avoid this ugly line?
 			unset($entity->country_code);
+			$this->update($entity);
+//			$query = DB::update($this->getTable())
+//				->columns(array_keys($entity->asArray()));
+//			$query->values($entity->asArray());
+//			$result = $query->execute($this->db);
+//			if (!isset($result[0])) {
+//				/**
+//				 * @TODO add some custom exception because something has gone terribly wrong
+//				 *
+//				 */
+//				throw new Exception();
+//			}
+//			array_push($results, $result[0]);
+		}
+
+		// Start transaction
+		$this->db->commit();
+
+
+
+		$this->emit($this->event,  $results , $form_id, 'created_contact');
+
+		return $entities;
+	}
+
+	// FormContactRepository
+	public function createCollection(Array $entities, $form_id = null)
+	{
+		if (empty($entities)) {
+			return;
+		}
+		$results = [];
+
+		/**
+		 * @TODO: not sure how to correctly solve the issue of not being able to get all the inserted ids
+		 * without inserting one by one. Inserting in a foreach is gross.
+		 */
+
+		// Start transaction
+		$this->db->begin();
+		foreach($entities as $entity) {
+			//@fixme how to avoid this ugly line?
+			unset($entity->country_code);
 			$query = DB::insert($this->getTable())
 				->columns(array_keys($entity->asArray()));
 			$query->values($entity->asArray());
@@ -106,6 +149,7 @@ class Ushahidi_Repository_Form_Contact extends Ushahidi_Repository implements
 		return $entities;
 	}
 
+
 	/**
 	 * @param int $form_id
 	 * @return Entity|Entity\Contact
@@ -122,6 +166,26 @@ class Ushahidi_Repository_Form_Contact extends Ushahidi_Repository implements
 		$results = $query->execute($this->db);
 
 		return $this->getCollection($results->as_array());
+	}
+
+
+	/**
+	 * @param int $form_id
+	 * @return Entity|Entity\Contact
+	 * Returns all
+	 */
+	public function getByContact($form_id, $contact)
+	{
+		$query = $this->selectQuery(array('posts.form_id' => $form_id, 'contacts.contact' => $contact))
+			->select('contacts.*')
+			->join('contact_post_state', 'INNER')
+			->on('contacts.id', '=', 'contact_post_state.contact_id')
+			->join('posts', 'INNER')
+			->on('posts.id', '=', 'contact_post_state.post_id')
+			->limit(1);
+		$result = $query->execute($this->db);
+
+		return $this->getEntity($result->current());
 	}
 
 	/**

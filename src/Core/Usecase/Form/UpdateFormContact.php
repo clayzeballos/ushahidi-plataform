@@ -28,45 +28,83 @@ class UpdateFormContact extends UpdateUsecase
 	use IdentifyRecords,
 		VerifyEntityLoaded;
 
-	/**
-	 * Get an empty entity.
-	 *
-	 * @return Entity
-	 */
+
 	protected function getEntity()
 	{
-		return $this->repo->getEntity();
+		$entity = $this->repo->getEntity()->setState($this->payload);
+
+		// Add user id if this is not provided
+		if (empty($entity->user_id) && $this->auth->getUserId()) {
+			$entity->setState(['user_id' => $this->auth->getUserId()]);
+		}
+
+		return $entity;
 	}
+	protected function getEntityByContact($contact)
+	{
+		// ... attempt to load the entity
+		$entity = $this->repo->getByContact($contact);
+
+		// ... and verify that the entity was actually loaded
+//		$this->verifyEntityLoaded($entity, compact('id'));
+
+		// ... then return it
+		return $entity;
+	}
+
 
 	// Usecase
 	public function interact()
 	{
 		// First verify that the form even exists
 		$this->verifyFormExists();
-
+		$this->verifyTargetedSurvey();
+		$this->verifyFormExistsInContactPostState();
 		// Fetch a default entity and ...
 		$entity = $this->getEntity();
 
 		// ... verify the current user has have permissions
-		$this->verifyCreateAuth($entity);
-
+		$this->verifyUpdateAuth($entity);
 
 		// Get each item in the collection
 		$entities = [];
-		$form_id = $this->getRequiredIdentifier('form_id');
-		foreach ($this->getPayload('contacts') as $contact_id) {
+		$invalid = [];
+		$countryCode = $this->getPayload('country_code');
+		$contacts = explode(',', $this->getPayload('contacts'));
+		foreach ($contacts as $contact) {
 			// .. generate an entity for the item
-			$entity = $this->repo->getEntity(compact('contact_id', 'form_id'));
-			// ... verify that the entity is in a valid state
-			$this->verifyValid($entity);
+			$entity = $this->repo->getByContact(intval($this->getIdentifier('form_id')), $contact);
+			/**
+			 * we only use this field for validation
+			 * we check that country code + phone number are valid.
+			 * country_code is unset before saving the entity
+			 */
+			$entity->country_code = $countryCode;
+			$entity->setState(
+				[
+					'updated' => time(),
+					'contact' => $entity->contact,
+				]
+			);
 			// ... and save it for later
 			$entities[] = $entity;
+
+			if (!$this->validator->check($entity->asArray())) {
+				$invalid[$entity->contact] = $this->validator->errors();
+			}
 		}
-
-		// ... persist the new collection
-		$this->repo->updateCollection($entities);
-
-		// ... and finally format it for output
-		return $this->formatter->__invoke($entities);
+		// FIXME: move to collection error trait?
+		if (!empty($invalid)) {
+			$invalidList = implode(',', array_keys($invalid));
+			throw new ValidatorException(sprintf(
+				'The following contacts are invalid:',
+				$invalidList
+			), $invalid);
+		} else {
+			// ... persist the new collection
+			$this->repo->updateCollection($entities, intval($this->getIdentifier('form_id')));
+			// ... and finally format it for output
+			return $this->formatter->__invoke(intval($this->getIdentifier('form_id')), $entities);
+		}
 	}
 }
