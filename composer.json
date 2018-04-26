@@ -121,7 +121,7 @@
             "behat --strict --profile ci"
         ],
         "migrate" : [
-            "phinx migrate -c phinx.php"
+            "php artisan migrate"
         ],
         "pre-test" : [
             "@migrate",
@@ -135,7 +135,9 @@
         ],
         "post-install-cmd": [
             "\\SebastianFeldmann\\CaptainHook\\Composer\\Cmd::install",
-            "php artisan passport:keys"
+            "php artisan passport:keys",
+            "chmod 600 storage/passport/oauth-private.key",
+            "chmod 400 storage/passport/oauth-public.key"
         ],
         "bootstrap:passport": [
             "php artisan passport:keys",
