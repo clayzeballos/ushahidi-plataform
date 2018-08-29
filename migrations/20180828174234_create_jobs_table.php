@@ -27,59 +27,65 @@ class CreateJobsTable extends AbstractMigration
      */
     public function up()
     {
-        $this->table('jobs')
-            ->addColumn('queue', 'string', [
-                'null' => false,
-                'default' => false
-            ])
-            ->addColumn(
-                'payload',
-                'text',
-                [
-                    'null' => true,
-                    'limit' => Phinx\Db\Adapter\MysqlAdapter::TEXT_LONG,
-                    'default' => null,
-                ]
-            )
-            ->addColumn(
-                'attempts',
-                'text',
-                [
-                    'null' => true,
-                    'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_TINY,
-                    'default' => null,
-                ]
-            )
-            ->addColumn(
-                'reserved_at',
-                'text',
-                [
-                    'null' => true,
-                    'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
-                    'default' => null,
-                ]
-            )
+        //don't run this in servers where service-proxy already added the jobs table
+        $exists = $this->hasTable('jobs');
+        if (!$exists) {
 
-            ->addColumn(
-                'available_at',
-                'text',
-                [
-                    'null' => true,
-                    'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
-                    'default' => null,
-                ]
-            )
-            ->addColumn(
-                'created_at',
-                'text',
-                [
-                    'null' => true,
-                    'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
-                    'default' => null,
-                ]
-            )
-            ->addIndex(['queue'])
-            ->create();
+            $this->table('jobs')
+                ->addColumn('queue', 'string', [
+                    'null' => false,
+                    'default' => false
+                ])
+                ->addColumn(
+                    'payload',
+                    'text',
+                    [
+                        'null' => true,
+                        'limit' => Phinx\Db\Adapter\MysqlAdapter::TEXT_LONG,
+                        'default' => null,
+                    ]
+                )
+                ->addColumn(
+                    'attempts',
+                    'text',
+                    [
+                        'null' => true,
+                        'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_TINY,
+                        'default' => null,
+                    ]
+                )
+                ->addColumn(
+                    'reserved_at',
+                    'text',
+                    [
+                        'null' => true,
+                        'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
+                        'default' => null,
+                    ]
+                )
+
+                ->addColumn(
+                    'available_at',
+                    'text',
+                    [
+                        'null' => true,
+                        'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
+                        'default' => null,
+                    ]
+                )
+                ->addColumn(
+                    'created_at',
+                    'text',
+                    [
+                        'null' => true,
+                        'limit' => Phinx\Db\Adapter\MysqlAdapter::INT_MEDIUM,
+                        'default' => null,
+                    ]
+                )
+                ->addIndex(['queue'])
+                ->create();
+        }
+
     }
     public function down()
     {
