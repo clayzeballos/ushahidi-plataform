@@ -18,8 +18,8 @@ use Ushahidi\Core\Traits\AdminAccess;
 
 class FormPermissions
 {
-	use AclTrait;
-	use AdminAccess;
+    use AclTrait;
+    use AdminAccess;
 
 	/**
 	 * Does the user have permission to edit posts for this form?
