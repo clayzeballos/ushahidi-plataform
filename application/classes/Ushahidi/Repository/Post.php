@@ -55,9 +55,12 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 	protected $contact_repo;
 	protected $post_value_factory;
 	protected $bounding_box_factory;
+	// By default remove all private responses
+	protected $restricted = true;
 
 	protected $include_value_types = [];
 	protected $include_attributes = [];
+	protected $exclude_stages = [];
 
 	protected $listener;
 
@@ -212,7 +215,9 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			if (empty($output[$value->key])) {
 				$output[$value->key] = [];
 			}
-			if ($value->value !== NULL) {
+			if (is_array($value->value) && isset($value->value['o_filename']) && isset($value->value['id'])) {
+				$output[$value->key][] = $value->value['id'];
+			} else if ($value->value !== NULL) {
 				$output[$value->key][] = $value->value;
 			}
 		}
@@ -460,10 +465,8 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 			->or_where("$table.id", 'IN', DB::query(Database::SELECT, 'select post_point.post_id from post_point'))
 			->and_where_close();
 		} else if($search->has_location === 'unmapped') {
-			$query->and_where_open()
-			->where("$table.id", 'NOT IN', DB::query(Database::SELECT, 'select post_geometry.post_id from post_geometry'))
-			->or_where("$table.id", 'NOT IN', DB::query(Database::SELECT, 'select post_point.post_id from post_point'))
-			->and_where_close();
+			$query->where("$table.id", 'NOT IN', DB::query(Database::SELECT, 'select post_geometry.post_id from post_geometry'));
+			$query->where("$table.id", 'NOT IN', DB::query(Database::SELECT, 'select post_point.post_id from post_point'));
 		}
 
 		// Filter by tag
@@ -549,17 +552,16 @@ class Ushahidi_Repository_Post extends Ushahidi_Repository implements
 		// If there's no logged in user, or the user isn't admin
 		// restrict our search to make sure we still return SOME results
 		// they are allowed to see
-		if (!$search->exporter) {
-			if (!$user->id) {
-				$query->where("$table.status", '=', 'published');
-			} elseif (!$this->postPermissions->canUserViewUnpublishedPosts($user)) {
-				$query
-					->and_where_open()
-					->where("$table.status", '=', 'published')
-					->or_where("$table.user_id", '=', $user->id)
-					->and_where_close();
-			}
-		}
+        if (!$user->id) {
+            $query->where("$table.status", '=', 'published');
+        } elseif (!$this->postPermissions->canUserViewUnpublishedPosts($user)) {
+            $query
+                ->and_where_open()
+                ->where("$table.status", '=', 'published')
+                ->or_where("$table.user_id", '=', $user->id)
+                ->and_where_close();
+        }
+
 	}
 
 	// SearchRepository

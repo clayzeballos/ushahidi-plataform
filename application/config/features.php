@@ -31,6 +31,7 @@ return [
 		'email' => TRUE,
 		'twilio' => TRUE,
 		'nexmo' => TRUE,
+		'testservice' => FALSE
 	],
 
 	// Client limits
@@ -66,11 +67,21 @@ return [
 		'enabled' => TRUE,
 	],
 
+	// Targeted Surveys
+	'targeted-surveys' => [
+		'enabled' => FALSE,
+	],
+
 	// Post locking
-	// Defaults to False, tests will fail if set to TRUE 
+	// Defaults to False, tests will fail if set to TRUE
 	// without complete Redis setup
 	// see TODO <docs link>
 	'redis' => [
+		'enabled' => FALSE,
+    ],
+    
+    // CSV Speedup
+	'csv-speedup' => [
 		'enabled' => FALSE,
 	],
 ];

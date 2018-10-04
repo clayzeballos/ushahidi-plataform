@@ -64,10 +64,14 @@ class Ushahidi_Validator_Form_Update extends Validator
 			'hide_time' => [
 				['in_array', [':value', [true, false]]]
 			],
+			'targeted_survey' => [
+				[[$this, 'everyoneCanCreateIsFalse'], [':value', ':fulldata']],
+			]
 		];
 	}
 
-  public function checkPostTypeLimit (Validation $validation)
+
+	public function checkPostTypeLimit (Validation $validation)
 	{
 		$config = \Kohana::$config->load('features.limits');
 
@@ -79,5 +83,13 @@ class Ushahidi_Validator_Form_Update extends Validator
 				$validation->error('name', 'postTypeLimitReached');
 			}
 		}
+	}
+
+	public function everyoneCanCreateIsFalse ($value, $fullData)
+	{
+		if ($value === true) {
+			return $fullData['everyone_can_create'] === false;
+		}
+		return true;
 	}
 }

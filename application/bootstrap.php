@@ -63,12 +63,14 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
 /**
  * Set the default language
  */
-I18n::lang('en-us');
+	I18n::lang('en-us');
+
 
 /**
- * Add response message for HTTP 422
+ * Add response message for HTTP 422 and 429
  */
 Kohana_Response::$messages[422] = 'Unprocessable Entity';
+Kohana_Response::$messages[429] = 'Too Many Requests';
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
@@ -123,9 +125,28 @@ Cookie::$salt = 'ushahidi-insecure-please-change-me';
  */
 if (getenv("RAVEN_URL"))
 {
-	$client = (new Raven_Client(getenv("RAVEN_URL"), ['exclude' => ['HTTP_Exception_404']]))->install();
+	$client = (
+		new Raven_Client(getenv("RAVEN_URL"), [
+			'exclude' => ['HTTP_Exception_404'],
+			'error_types' => (E_ALL & ~E_NOTICE & ~E_USER_NOTICE),
+			'processors' => [
+				'Raven_Processor_SanitizeHttpHeadersProcessor',
+				'Raven_Processor_SanitizeDataProcessor'
+			],
+			'processorOptions' => [
+				'Raven_Processor_SanitizeDataProcessor' => [
+					'fields_re' => '/(authorization|password|passwd|secret|password_confirmation|card_number|auth_pw|authToken|api_key|client_secret)/i',
+				],
+				'Raven_Processor_SanitizeHttpHeadersProcessor' => [
+					'sanitize_http_headers' => [
+						'Authorization', 'Proxy-Authorization', 'X-Csrf-Token', 'X-CSRFToken', 'X-XSRF-TOKEN', 'X-Ushahidi-Signature',
+					]
+				]
+			]
+		])
+	)->install();
 
-	Kohana::$log->attach(new Log_Raven($client));
+	Kohana::$log->attach(new Log_Raven($client), Log::WARNING);
 }
 
 /**

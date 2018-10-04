@@ -39,19 +39,21 @@ class Controller_Sms_Twilio extends Controller {
 
 		// Authenticate the request
 		$options = $provider->options();
+
 		if ($this->request->post('AccountSid') !== $options['account_sid'])
 		{
 			throw HTTP_Exception::factory(403, 'Incorrect or missing AccountSid');
 		}
 
-		// Remove Non-Numeric characters because that's what the DB has
-		$to = preg_replace("/[^0-9,.]/", "", $this->request->post('To'));
-		$from  = preg_replace("/[^0-9,.]/", "", $this->request->post('From'));
+		// Remove most Non-Numeric characters because that's what the DB has
+		$to = preg_replace("/[^0-9,+.]/", "", $this->request->post('To'));
+		$from  = preg_replace("/[^0-9,+.]/", "", $this->request->post('From'));
 
 		$message_text = $this->request->post('Body');
 		$message_sid  = $this->request->post('MessageSid');
 
 		// Check if a form id is already associated with this data provider
+		// @willcheck this is ggeat we could use it!! but maybe only with twilio :(
 		$additional_data = [];
 		if (isset($options['form_id'])) {
 			$additional_data['form_id'] = $options['form_id'];

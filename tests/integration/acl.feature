@@ -204,7 +204,7 @@ Feature: API Access Control Layer
         When I request "/posts"
         Then the guzzle status code should be 200
         And the response is JSON
-        And the "count" property equals "17"
+        And the "count" property equals "18"
 
     Scenario: User can view public and own private posts in collection
         Given that I want to get all "Posts"
@@ -213,7 +213,7 @@ Feature: API Access Control Layer
         When I request "/posts"
         Then the guzzle status code should be 200
         And the response is JSON
-        And the "count" property equals "20"
+        And the "count" property equals "23"
 
     Scenario: Admin can view all posts in collection
         Given that I want to get all "Posts"
@@ -222,7 +222,7 @@ Feature: API Access Control Layer
         When I request "/posts"
         Then the guzzle status code should be 200
         And the response is JSON
-        And the "count" property equals "24"
+        And the "count" property equals "32"
 
     Scenario: Admin user can view private posts
         Given that I want to find a "Post"
@@ -537,7 +537,7 @@ Feature: API Access Control Layer
         When I request "/posts"
         Then the guzzle status code should be 200
         And the response is JSON
-        And the "count" property equals "23"
+        And the "count" property equals "31"
 
     @rolesEnabled
     Scenario: User with Manage Posts permission can view private posts
@@ -590,7 +590,7 @@ Feature: API Access Control Layer
         Then the response is JSON
         And the response has a "count" property
         And the type of the "count" property is "numeric"
-        And the "count" property equals "6"
+        And the "count" property equals "7"
         Then the guzzle status code should be 200
 
     @rolesEnabled
@@ -601,7 +601,7 @@ Feature: API Access Control Layer
         Then the response is JSON
         And the response has a "count" property
         And the type of the "count" property is "numeric"
-        And the "count" property equals "7"
+        And the "count" property equals "11"
         Then the guzzle status code should be 200
 
     @rolesEnabled
@@ -646,6 +646,41 @@ Feature: API Access Control Layer
         And the "role" property equals "user"
         And the response does not have a "password" property
         Then the guzzle status code should be 200
+
+    @rolesEnabled
+    Scenario: User with Manage Collections and Saved Searches can update a Collection
+		Given that I want to update a "collection"
+        And that the request "Authorization" header is "Bearer testsets"
+		And that the request "data" is:
+			"""
+			{
+				"name":"Updated Set One"
+			}
+			"""
+		And that its "id" is "7"
+		When I request "/collections"
+		Then the response is JSON
+		And the response has a "id" property
+		And the type of the "id" property is "numeric"
+		And the "id" property equals "7"
+		And the response has a "name" property
+		And the "name" property equals "Updated Set One"
+		Then the guzzle status code should be 200
+
+    
+    @rolesEnabled
+    Scenario: User without Manage Collections and Saved Searches can not update a Collection
+		Given that I want to update a "collection"
+        And that the request "Authorization" header is "Bearer testanon"
+		And that the request "data" is:
+			"""
+			{
+				"name":"Updated Set One"
+			}
+			"""
+		And that its "id" is "7"
+		When I request "/collections"
+		Then the guzzle status code should be 403
 
     @rolesEnabled @dataImportEnabled
     Scenario: Uploading a CSV file with the Importer role

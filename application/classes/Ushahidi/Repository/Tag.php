@@ -42,14 +42,13 @@ class Ushahidi_Repository_Tag extends Ushahidi_Repository implements
 	// ReadRepository
 	public function getEntity(Array $data = null)
 	{
-		if (!empty($data['id']))
-		{
+		if (!empty($data['id'])) {
 			// If this is a top level category
-			if(empty($data['parent_id'])) {
+			if (empty($data['parent_id'])) {
 				// Load children
 				$data['children'] = DB::select('id')
 					->from('tags')
-					->where('parent_id','=',$data['id'])
+					->where('parent_id', '=', $data['id'])
 					->execute($this->db)
 					->as_array(null, 'id');
 			}
@@ -74,10 +73,9 @@ class Ushahidi_Repository_Tag extends Ushahidi_Repository implements
 	protected function setSearchConditions(SearchData $search)
 	{
 		$query = $this->search_query;
-		foreach (['tag', 'type', 'parent_id'] as $key)
-		{
+		foreach (['tag', 'type', 'parent_id'] as $key) {
 			if ($search->$key) {
-				 $query->where($key, '=', $search->$key);
+				$query->where($key, '=', $search->$key);
 			}
 		}
 
@@ -86,9 +84,9 @@ class Ushahidi_Repository_Tag extends Ushahidi_Repository implements
 			$query->where('tag', 'LIKE', "%{$search->q}%");
 		}
 
-		if($search->level) {
+		if ($search->level) {
 			//searching for top-level-tags
-			if($search->level === 'parent') {
+			if ($search->level === 'parent') {
 				$query->where('parent_id', '=', null);
 			}
 		}
@@ -162,8 +160,54 @@ class Ushahidi_Repository_Tag extends Ushahidi_Repository implements
 	public function deleteTag($id)
 	{
 		// Remove tag from attribute options
-		$this->removeTagFromAttributeOptions($entity->id);
-
+		$this->removeTagFromAttributeOptions($id);
 		return $this->delete(compact('id'));
+	}
+
+	/**
+	 * Checks if the assigned role is valid for this tag.
+	 * True if there is no role or if it's a parent with no children
+	 * @param Validation $validation
+	 * @param $fullData
+	 * @return bool
+	 */
+	public function isRoleValid(\Ushahidi\Core\Tool\ValidationEngine $validation, $tag)
+	{
+		$isChild = !!$tag['parent_id'];
+		$parent = $isChild ? $this->selectOne(['id' => $tag['parent_id']]) : null;
+
+		// If tag has a role and is a child category
+		if ($isChild && $parent) {
+			// ... load the parent
+			$parent = $this->getEntity($parent);
+
+			// ... and check if the role matches its parent
+			if ($parent->role != $tag['role']) {
+				// If it doesn't, set a validation error
+				// We have to do this here because an empty field gets ignored
+				// by KohanaValidation
+				$validation->error('role', 'isRoleValid');
+				// And return false
+				return false;
+			}
+		}
+
+		// Otherwise role is fine
+		return true;
+	}
+
+	/**
+	 * Gets the tag names corresponding to the list of tag ids
+	 * @param $tag_ids
+	 * @return array
+	 */
+	public function getNamesByIds($tag_ids)
+	{
+		$result = $this->selectQuery(array('id' => $tag_ids))
+			->resetSelect()
+			->select('tag')
+			->execute($this->db);
+		$result = $result->as_array(null, 'tag');
+		return $result;
 	}
 }
