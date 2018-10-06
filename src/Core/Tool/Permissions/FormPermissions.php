@@ -18,8 +18,8 @@ use Ushahidi\Core\Traits\AdminAccess;
 
 class FormPermissions
 {
-	use AclTrait;
-	use AdminAccess;
+    use AclTrait;
+    use AdminAccess;
 
 	/**
 	 * Does the user have permission to edit posts for this form?
@@ -31,7 +31,6 @@ class FormPermissions
 	public function canUserEditForm(User $user, $form_id)
 	{
 		// @todo delegate to form authorizer
-		return $this->acl->hasPermission($user, Permission::MANAGE_POSTS) ||
-			$this->acl->hasPermission($user, Permission::EDIT_ANY_POSTS);
-	}
+		return $this->acl->hasPermission($user, Permission::MANAGE_POSTS)||
+	$this->acl->hasPermission($user, Permission::EDIT_ANY_POSTS);}
 }
