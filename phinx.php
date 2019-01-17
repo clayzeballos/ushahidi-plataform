@@ -17,6 +17,15 @@ if (getenv("CLEARDB_DATABASE_URL")) {
     putenv("DB_DATABASE=" . substr($url["path"], 1));
 }
 
+if (getenv("JAWSDB_URL")) {
+    $url = parse_url(getenv("JAWSDB_URL"));
+    // Push url parts into env
+    putenv("DB_HOST=" . $url["host"]);
+    putenv("DB_USERNAME=" . $url["user"]);
+    putenv("DB_PASSWORD=" . $url["pass"]);
+    putenv("DB_DATABASE=" . substr($url["path"], 1));
+}
+
 return [
     'paths' => [
         'migrations' => __DIR__ . '/migrations',
