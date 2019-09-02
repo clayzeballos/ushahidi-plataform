@@ -48,4 +48,10 @@ class FormStage extends StaticEntity
     {
         return 'form_stages';
     }
+    
+    // returns fields that can be translated
+    public function getTranslatable()
+    {
+        return ['label', 'description'];
+    }
 }

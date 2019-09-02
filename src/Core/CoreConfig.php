@@ -278,6 +278,9 @@ class CoreConfig extends ContainerConfig
             'export' => $di->lazyNew('Ushahidi\Core\Usecase\Post\Export'),
         ];
 
+        // Set up traits for translation
+        $di->setters['Ushahidi\Core\Entity\TranslationRepositoryTrait']['setTranslationRepository']
+            = $di->lazyGet('repository.translation');
 
         // Set up traits for SetsPosts Usecases
         $di->setters['Ushahidi\Core\Usecase\Set\SetRepositoryTrait']['setSetRepository']

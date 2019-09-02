@@ -16,6 +16,7 @@ use Ushahidi\Core\Usecase;
 use Ushahidi\Core\Tool\AuthorizerTrait;
 use Ushahidi\Core\Tool\FormatterTrait;
 use Ushahidi\Core\Tool\ValidatorTrait;
+use Concerns\SavesTranslations;
 
 class UpdateUsecase implements Usecase
 {
@@ -77,6 +78,9 @@ class UpdateUsecase implements Usecase
 
         // ... persist the changes
         $this->repo->update($entity);
+
+        // ... save translations (if any)
+        $this->saveTranslations($entity);
 
         // ... check that the entity can be read by the current user
         if ($this->auth->isAllowed($entity, 'read')) {

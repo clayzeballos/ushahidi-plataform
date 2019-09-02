@@ -30,6 +30,8 @@ class CreateUsecase implements Usecase
     // - ModifyRecords for setting entity modification parameters
     use Concerns\ModifyRecords;
 
+    use Concerns\SavesTranslations;
+
     // - Provides dispatch()
     use DispatchesEvents;
 
@@ -79,6 +81,9 @@ class CreateUsecase implements Usecase
 
         // ... get the newly created entity
         $entity = $this->getCreatedEntity($id);
+
+        // ... save translations (if any)
+        $this->saveTranslations($entity);
 
         // ... dispatch an event and let other services know
         $this->dispatch($entity->getResource(). '.create', [

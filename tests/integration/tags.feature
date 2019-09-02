@@ -409,3 +409,33 @@ Feature: Testing the Tags API
         And the "errors.1.message" property equals "Role must match the parent category"
         Then the guzzle status code should be 422
 
+      Scenario: Creating a new Tag with translations
+         Given that I want to make a new "Tag"
+         And that the request "data" is:
+             """
+             {
+                 "parent_id":null,
+                 "tag":"Boxes",
+                 "slug":"boxes",
+                 "description":"Is this a box? Awesome",
+                 "type":"category",
+                 "priority":1,
+                 "color":"00ff00",
+                 "role":[],
+                 "translations":{
+                     "ar": {
+                         "tag": "مربعات"
+                     },
+                     "en": {
+                         "tag": "Boxes"
+                     }
+                 }
+             }
+             """
+         When I request "/tags"
+         Then the response is JSON
+         And the response has a "id" property
+         And the type of the "id" property is "numeric"
+         And the "translations.ar.tag" property equals "مربعات"
+         And the "translations.en.tag" property equals "Boxes"
+         Then the guzzle status code should be 200

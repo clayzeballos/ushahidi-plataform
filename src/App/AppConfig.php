@@ -392,6 +392,7 @@ class AppConfig extends ContainerConfig
         $di->set('repository.post_lock', $di->lazyNew(\Ushahidi\App\Repository\Post\LockRepository::class));
         $di->set('repository.tag', $di->lazyNew(\Ushahidi\App\Repository\TagRepository::class));
         $di->set('repository.set', $di->lazyNew(\Ushahidi\App\Repository\SetRepository::class));
+        $di->set('repository.translation', $di->lazyNew(\Ushahidi\App\Repository\TranslationRepository::class));
         $di->set('repository.savedsearch', $di->lazyNew(
             \Ushahidi\App\Repository\SetRepository::class,
             [],
@@ -444,6 +445,10 @@ class AppConfig extends ContainerConfig
         // Config
         $di->params[\Ushahidi\App\Repository\ConfigRepository::class] = [
             'resolver' => $di->lazyGet('db.ohanzee.resolver'),
+        ];
+        // Config
+        $di->params[\Ushahidi\App\Repository\TranslationRepository::class] = [
+        'resolver' => $di->lazyGet('db.ohanzee.resolver'),
         ];
 
         // Set up Json Transcode Repository Trait
