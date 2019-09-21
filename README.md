@@ -50,7 +50,8 @@ Ushahidi OSS Home
 
 ## Contributors ✨
 
-Thanks goes to the wonderful people who [[Contribute](CONTRIBUTING.md)]! See the list of contributors at [all-contributors](docs/contributors-to-ushahidi.md)
+Thanks goes to the wonderful people who [[Contribute](CONTRIBUTING.md)]! See the list of contributors in [our contributors page](https://docs.ushahidi.com/platform-developer-documentation/contributors-to-ushahidi)
+
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ### Backers
